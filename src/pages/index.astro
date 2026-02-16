@@ -1,17 +1,20 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Hachemite | Chef Technique">
+	<div class="space-y-6 mt-12">
+		<h1 class="text-4xl font-bold font-sans">System Online.</h1>
+		
+        <p class="font-mono text-sm text-bronze border-l-2 border-bronze pl-4">
+			> CHECKING_ENVIRONMENT... OK <br>
+			> LOADING_PALETTE... SAND_AND_DUST <br>
+			> TAILWIND_VERSION... v4.0 (CSS_MODE)
+		</p>
+        
+        <div class="p-6 border border-ink shadow-hard bg-sand">
+            <h2 class="font-bold text-lg mb-2">Configuration Check</h2>
+            <p>If this card has a hard shadow and the background is sand-colored, Tailwind v4 is correctly reading your tokens from CSS.</p>
+        </div>
+	</div>
+</BaseLayout>

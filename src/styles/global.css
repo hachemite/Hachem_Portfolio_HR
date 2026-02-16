@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+
+/* 2.0 DESIGN TOKENS (Tailwind v4 Configuration) */
+@theme {
+  /* 2.1 Color Palette - Sand & Dust */
+  --color-sand: #FDF8D8; /* Base background color */
+  --color-ink: #494949; /* Primary text color ; Foreground color */
+  
+  /* Bronze Scale */
+  --color-bronze: #8C7B65; /* Primary accent color */
+  --color-bronze-light: #C0A080; /* Lighter accent for hover states */
+
+  /* Semantic Colors */ /* Never used it break all reserved for future use (never used as dot) */
+  --color-info: #5A7D7C;
+  --color-warning: #D4A056;
+  --color-danger: #A63D40;
+
+  /* 2.2 Typography - The Voice */
+  --font-sans: "Akwe Pro", "Manrope", "Helvetica", "Arial", sans-serif; 
+  --font-mono: "Courier New", "Geist Mono", "Courier", monospace;
+  --font-koodak: "Koodak", sans-serif; /* Reserved for ARABIC */
+
+  /* 2.4 Shadows - Hard & Pixel Perfect */
+  --shadow-hard: 4px 4px 0 0 #494949;
+  --shadow-hard-sm: 2px 2px 0 0 #494949;
+
+  /* 4.2 Z-Index Architecture */
+  --z-canvas: -1;
+  --z-base: 0;
+  --z-overlay: 10;
+  --z-cursor: 9999;
+}
+
+/* --------------------------------------------------------- */
+/* BASE STYLES & RESILIENCE                                  */
+/* --------------------------------------------------------- */
+
+/* Font Loading Strategy */
+@font-face {
+  font-family: 'Akwe Pro';
+  src: url('/fonts/AkwePro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Akwe Pro';
+  src: url('/fonts/AkwePro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  /* 5.5 Resilience: Default to Sand without JS */
+  body {
+    background-color: var(--color-sand);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    /* 5.4 RTL Readiness */
+    direction: ltr; 
+  }
+
+  /* Mechanical Selection Feel */
+  ::selection {
+    background-color: var(--color-bronze);
+    color: var(--color-sand);
+  }
+}
+
+@layer utilities {
+  /* Hide Scrollbar for clean UI */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
