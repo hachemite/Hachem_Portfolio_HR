@@ -1,0 +1,35 @@
+---
+const navLinks = [
+  { label: "~/", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "Wiki", href: "/wiki" },
+  { label: "CV", href: "/cv" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-sand border-t-2 border-ink pb-safe shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+    <div class="flex justify-between items-center h-16 px-6">
+        {navLinks.map(link => {
+             const isActive = link.href === '/' 
+                    ? currentPath === '/' 
+                    : currentPath.startsWith(link.href);
+            
+            return (
+                <a href={link.href} class="flex flex-col items-center justify-center h-full w-full group no-underline">
+                    <span class:list={[
+                        "font-mono text-sm uppercase tracking-tight transition-all pb-1", // pb-1 adds a tiny gap for the line
+                        isActive 
+                            /* ACTIVE: Extra Bold + Bronze + Perfect 2px Solid Line */
+                            ? "text-bronze font-extrabold border-b-2 border-bronze" 
+                            /* INACTIVE: Bold + Ink + Invisible Border (prevents jumping) */
+                            : "text-ink/60 font-bold border-b-2 border-transparent hover:text-bronze"
+                    ]}>
+                        {link.label}
+                    </span>
+                </a>
+            )
+        })}
+    </div>
+</nav>

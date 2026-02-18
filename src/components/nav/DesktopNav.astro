@@ -1,0 +1,53 @@
+---
+const navLinks = [
+  { label: "~/", href: "/" },
+  { label: "PROJ", href: "/projects" },
+  { label: "WIKI", href: "/wiki" },
+  { label: "CV", href: "/cv" },
+];
+
+const socialLinks = [
+  { label: "GH", href: "https://github.com/hachemite" },
+  { label: "IN", href: "https://linkedin.com/in/hachemite" },
+  { label: "@", href: "mailto:contact@hachemite.com" },
+];
+
+// Get current path to determine which link is "Active"
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="hidden md:flex absolute top-0 left-0 w-full p-8 z-50 pointer-events-none">
+    <div class="pointer-events-auto flex items-center gap-4 text-xs font-mono text-ink/60">
+        
+        <div class="flex gap-3">
+            {socialLinks.map(link => (
+                <a href={link.href} target="_blank" class="hover:text-bronze transition-colors">
+                    [{link.label}]
+                </a>
+            ))}
+        </div>
+
+        <span class="text-bronze/30">|</span>
+
+        <div class="flex gap-2 font-bold text-ink">
+            {navLinks.map(link => {
+                // Check if this link is currently active
+                const isActive = link.href === '/' 
+                    ? currentPath === '/' 
+                    : currentPath.startsWith(link.href);
+
+                return (
+                    <a href={link.href} 
+                       class:list={[
+                           "px-2 py-1 transition-all border", // Base classes
+                           isActive 
+                               ? "border-ink bg-sand shadow-hard-sm text-bronze translate-y-[-1px]" // ACTIVE: Boxed + Shadow
+                               : "border-transparent hover:border-bronze hover:text-bronze" // INACTIVE: Subtle hover
+                       ]}>
+                        {link.label}
+                    </a>
+                )
+            })}
+        </div>
+    </div>
+</nav>
