@@ -60,8 +60,25 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    /* 5.4 RTL Readiness */
     direction: ltr; 
+
+    /* --- ADDED NOISE FILTER START --- */
+    &::before {
+      content: "";
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%;
+      
+      /* The Magic Data URI: An SVG Noise Filter */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      
+      pointer-events: none;
+      z-index: 50; /* Or use a new variable like var(--z-noise) */
+      mix-blend-mode: multiply;
+    }
+    /* --- ADDED NOISE FILTER END --- */
   }
 
   /* Mechanical Selection Feel */
@@ -80,4 +97,168 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* NEW: Force pixelated rendering for images */
+  .image-rendering-pixelated {
+    image-rendering: pixelated;
+  }
 }
+
+
+@layer components {
+  /* THE MASTER LAYOUT CONTAINER */
+  .layout-main {
+    /* 1. Removed md:px-0 -> This was killing your side margins on tablets.
+       2. Kept px-4 (1rem) -> This ensures there is ALWAYS a 16px gap, 
+          even if the screen is exactly the same size as the content.
+    */
+    @apply w-full px-4 pt-4 pb-24 
+           md:pt-48 md:pb-32 
+           md:max-w-6xl md:mx-auto;
+  }
+
+  .section-spacer {
+    @apply mb-12 md:mb-24;
+  }
+}
+
+@layer base {
+  /* --- TYPOGRAPHY ENGINE (For Markdown Content) --- */
+  
+  /* H1: Page Titles (The "Anchor") */
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em; /* Tight "Headline" feel */
+    color: var(--color-ink);
+    margin-bottom: 1.5rem;
+  }
+
+  /* H2: Section Headers (e.g., "The Problem") */
+  /* Includes the Bronze Divider you mentioned */
+  h2 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1.5rem; /* ~24px */
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(140, 123, 101, 0.3); /* Bronze Divider */
+  }
+
+  /* P: Body Text (The "Academic" Readability) */
+  p {
+    font-family: var(--font-sans);
+    font-size: 1rem; /* 16px */
+    line-height: 1.75; /* Relaxed reading */
+    margin-bottom: 1.5rem;
+    color: rgba(73, 73, 73, 0.9); /* Ink at 90% opacity */
+  }
+
+a {
+    color: var(--color-ink);
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: all 0.15s ease;
+  }
+  
+  a:hover {
+    color: var(--color-bronze);
+    text-decoration-style: solid;
+  }
+
+  /* 2. THE CURVED ARROW ENGINE (Custom Icon) */
+  /* Targets links inside paragraphs (p) and lists (li) */
+  p a::after, 
+  li a::after {
+    content: "";
+    display: inline-block;
+    width: 0.75em;  /* Scales with font size */
+    height: 0.75em;
+    margin-left: 0.25em; /* Spacing next to text */
+    vertical-align: -0.1em; /* Pushes it down slightly to center it with lowercase letters */
+    
+    /* THE MAGIC: We use the SVG as a Mask */
+    /* This allows us to set the color using background-color! */
+    background-color: var(--color-ink); 
+    opacity: 0.6;
+    
+    /* The Curved Arrow Shape (SVG Data URI) */
+    /* I customized this path to match your curved arrow image */
+    --icon-curve: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8' opacity='0'/%3E%3Cpath d='M11 5l6 6' /%3E%3Cpath d='M17 5l-6 6' opacity='0' /%3E%3Cpath d='M4 18c0-5 3-9 9-11l3 3' /%3E%3C/svg%3E");
+    
+    /* A cleaner "Turn Up Right" Arrow (Bold & Curvy) */
+    /* path: M10 9 C 10 9, 10 14, 10 14 C 10 19, 15 19, 15 19 L 20 14 M 20 14 L 15 9 */
+    /* Let's use a standard 'corner-up-right' style which is cleaner for text */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 14 20 9 15 4'/%3E%3Cpath d='M4 20v-7a4 4 0 0 1 4-4h12'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 14 20 9 15 4'/%3E%3Cpath d='M4 20v-7a4 4 0 0 1 4-4h12'/%3E%3C/svg%3E");
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  /* Hover Effect */
+  p a:hover::after, 
+  li a:hover::after {
+    background-color: var(--color-bronze); /* The icon turns Bronze */
+    transform: translate(2px, -2px); /* Moves Up-Right */
+    opacity: 1;
+  }
+  
+  /* LISTS: Custom "Square" Bullets (No default dots) */
+  ul {
+    list-style-type: none; 
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* The Pixel-Perfect Square Bullet */
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em; /* Align with text */
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-bronze);
+  }
+
+  /* CODE BLOCKS: The "Terminal" */
+  /* Used for inline `code` or blocks */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem; /* 14px */
+    color: var(--color-bronze);
+    background-color: rgba(253, 248, 216, 0.5); /* Subtle highlight */
+    padding: 0.1em 0.3em;
+  }
+  
+  pre {
+    background-color: #F6F1D1 !important; /* Slightly darker sand */
+    border: 1px solid var(--color-ink);
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+  
+  pre code {
+    background-color: transparent;
+    padding: 0;
+    color: var(--color-ink);
+  }
+}
+
