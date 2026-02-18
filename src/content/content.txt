@@ -1,0 +1,83 @@
+F-Pattern right mostly feel empty and Left-Aligned and "Documentation" style
+Desktop : Huge Margins centered. Huge whitespace on left and right to focus the eye.
+Phone : This layout is optimized for One-Handed Use (Left or Right thumb). The margin rule not respected as on Desktop
+
+
+
+Title H1 : my Name smaller technical name like tech lead or software engineer ( Always the first thing seen, but scrolls away to let content shine anchor)
+
+
+Header :
+if Desktop web :
+
+icons of contact most (linkdedin github email) always action (choice are better to be outlined) (left) -- [ ~/ or about ] [ Projects ] [ Wiki ] [ CV ] ;Use a monospace font for the nav (Top left like  szymonkaliski  )
+
+[GH] [IN] [@]  |  [ ~/ ]  [ PROJ ]  [ WIKI ]  [ CV ] with The Divider: text-bronze/30 (30% opacity). It adds structure without adding weight.
+
+if phone :  
+[ Github ]  [ Email ] (after the Title Big, Outline Buttons (Easy to tap))
+
+[ ~/ or about ] [ Projects ] [ Wiki ] [ CV ] ;Use a monospace font for the nav  (Sticky Bottom Bar use)
+
+
+
+
+- about ~/ (Home): (Hero) Your Intro with image pixelated the brand - section (Signal) Status [FOCUS]: [STACK] - [CURRENT ROLE], (section LOG) [Recent Activity] , One clear sentence with your email.section , section View Full History /CV button , and "Now" section ([LATEST COMMIT]: ; [CURRENTLY READING]:) section Stats
+
+- Projects/ : Layout: A Bento Grid. My Grid of works with image monocrome grayscale or sand with title and Tech Stack (Badge) and description max 5 and 6 word by year
+    -> clicked you enter Projects/ProjectName have   title ; link (github mostly) , medium description , photos and descript or just be markdown easily uploaded in way I need for each project using content can have backlink 
+
+- Wiki :  Your Notes/Technical Logs List your 3-5 best technical write-ups.;A strict Data Table or List. Columns: Date | Title | Tags No images. Just text. Looks like a file explorer.
+
+2026-02-15 | Optimizing Nginx for DDoS // #DevOps
+
+2026-01-20 | Understanding Transformers from Scratch // #AI ; also each notes/NoteName can have each md that have own twist 
+
+- CV / : look similair to the cv I make to print have all information also link to to download cv pdf first better Top Right: [ DOWNLOAD_PDF ] button. , my real image not brand ,section summary ,section skill ,section education , section experience , section certificate , section project I want to focus to give the most light , section what I studied 
+High legibility, standard hierarchy. No "glitch" effects here.
+
+
+* Footer : Technical metadata (Last update + Source Code).
+
+*404 page is > Request: GET /bad-link
+> Status: 404
+> Upstream: Hachemite_Portfolio
+> Action:  Return to Root ( ~ ) similair to terminal log
+
+
+
+
+
+content structure :
+
+### 1. The Mapping Table (Astro vs. LaTeX)
+
+| LaTeX File | Your Astro Source | Filter Logic |
+| --- | --- | --- |
+| `experience.tex` | `src/content/experience/` | Filter where `type: 'Work'` or `type: 'Internship'` |
+| `extracurricular.tex` | `src/content/experience/` | Filter where `type: 'Leadership'` (e.g., SecOps Club) |
+| `committees.tex` | `src/content/experience/` | Filter where `type: 'Volunteering'` (Future proofing) |
+| `honors.tex` | `src/content/certificates/` | Filter where `type: 'Award'` (e.g., CTF 2nd Place) |
+| `presentation.tex` | `src/content/certificates/` | Filter where `type: 'Speaking'` (e.g., GitHub Workshop) |
+| `writing.tex` | `src/content/wiki/` | Filter where `tags` includes "Research" or "Paper" |
+| `education.tex` | `src/content/education/` | All items |
+| `skills.tex` | **MISSING (See below)** | *This is the only thing we need to add.* |
+
+
+src/content/
+├── config.ts               <-- The "Brain" (Schema Definition)
+├── experience/             <-- Work, Internships, Leadership, Volunteering
+│   ├── secops-lead.md
+│   └── ir4lab-intern.md
+├── projects/               <-- Code & Case Studies
+│   ├── cybertech-infra.md
+│   └── lucid-ddos.md
+├── education/              <-- Degrees
+│   └── ensa-fes.yaml
+├── certificates/           <-- Honors, Awards, Speaking
+│   ├── aws-saa.yaml
+│   └── ctf-gtr-win.yaml
+├── skills/                 <-- The CV "Skills" Summary
+│   └── tech-stack.yaml
+└── wiki/                   <-- Digital Garden & Research Papers
+    └── nginx-optimization.md
