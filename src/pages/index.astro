@@ -1,20 +1,106 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import TechBadge from '../components/TechBadge.astro';
+import { Icon } from 'astro-icon/components';
+import BouncyGrid from '../components/BouncyGrid.astro'; 
+import { getCollection } from 'astro:content';
+
+const experience = await getCollection('experience', ({ data }) => data.visible);
+const sortedExperience = experience.sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
 ---
 
-<BaseLayout title="Hachemite | Chef Technique">
-	<div class="space-y-6 mt-12">
-		<h1 class="text-4xl font-bold font-sans">System Online.</h1>
-		
-        <p class="font-mono text-sm text-bronze border-l-2 border-bronze pl-4">
-			> CHECKING_ENVIRONMENT... OK <br>
-			> LOADING_PALETTE... SAND_AND_DUST <br>
-			> TAILWIND_VERSION... v4.0 (CSS_MODE)
-		</p>
-        
-        <div class="p-6 border border-ink shadow-hard bg-sand">
-            <h2 class="font-bold text-lg mb-2">Configuration Check</h2>
-            <p>If this card has a hard shadow and the background is sand-colored, Tailwind v4 is correctly reading your tokens from CSS.</p>
+<BaseLayout title="Hachemite | Tech Lead">
+
+    <div class="md:hidden w-full flex justify-center mb-6 pt-2">
+        <BouncyGrid instanceId="mobile" />
+    </div>
+
+    <div class="mb-8 md:mb-16">
+        <Hero />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 md:gap-16 items-start">
+
+        <div class="space-y-8 md:space-y-12">
+            
+            <div class="grid grid-cols-3 gap-2 md:hidden">
+                <a href="https://github.com/hachemite" target="_blank"
+                   class="flex flex-col items-center justify-center gap-1 border border-ink bg-sand p-3 font-mono text-xs font-bold shadow-hard-sm active:shadow-none active:translate-y-[2px] transition-all hover:bg-ink/5">
+                    <Icon name="simple-icons:github" class="w-5 h-5" />
+                    <span>GH</span>
+                </a>
+                <a href="https://linkedin.com/in/hachemite" target="_blank"
+                   class="flex flex-col items-center justify-center gap-1 border border-ink bg-sand p-3 font-mono text-xs font-bold shadow-hard-sm active:shadow-none active:translate-y-[2px] transition-all hover:bg-ink/5">
+                    <Icon name="simple-icons:linkedin" class="w-5 h-5" />
+                    <span>IN</span>
+                </a>
+                <a href="mailto:contact@hachemite.com"
+                   class="flex flex-col items-center justify-center gap-1 border border-ink bg-sand p-3 font-mono text-xs font-bold shadow-hard-sm active:shadow-none active:translate-y-[2px] transition-all hover:bg-ink/5">
+                    <Icon name="simple-icons:gmail" class="w-5 h-5" />
+                    <span>MAIL</span>
+                </a>
+            </div>
+
+            <div class="border-l-2 border-bronze pl-6 ml-2">
+                <h2 class="font-bold text-xl mb-4 text-ink flex items-center gap-2">
+                    <span class="text-bronze">01.</span> SIGNAL
+                </h2>
+                <p class="text-lg leading-relaxed max-w-prose">
+                    I engineer <a href="/projects"><strong>resilient systems</strong></a> and <strong>AI pipelines</strong>. Currently optimizing high-traffic infrastructure at <span class="font-bold">SecOps</span> and building autonomous agents.
+                </p>
+
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-8 text-sm font-mono bg-white/40 p-4 border border-ink/10">
+                    <div>
+                        <span class="text-ink/40 block mb-1">[FOCUS]</span>
+                        DevOps / Reinforcement Learning
+                    </div>
+                    <div>
+                        <span class="text-ink/40 block mb-1">[CURRENT_READ]</span>
+                        "Designing Data-Intensive Applications"
+                    </div>
+                </div>
+            </div>
         </div>
-	</div>
+
+        <div class="hidden md:flex w-full sticky top-8 justify-end">
+            <BouncyGrid instanceId="desktop" />
+        </div>
+
+    </div>
+
+    <section class="mt-24 md:mt-32">
+        <div class="border-l-2 border-bronze pl-6 ml-2">
+            <h2 class="font-bold text-xl mb-4 text-ink flex items-center gap-2">
+                <span class="text-bronze">02.</span> LOGS
+            </h2>
+            <div class="space-y-8">
+                {sortedExperience.map((entry) => (
+                    <div class="group">
+                        <div class="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 mb-2">
+                            <h3 class="font-bold text-lg text-ink">
+                                {entry.data.role} <span class="text-ink/40">@</span> {entry.data.company}
+                            </h3>
+                            <span class="font-mono text-xs text-bronze">
+                                {entry.data.startDate.toISOString().split('T')[0]}
+                                {entry.data.current ? " >> PRESENT" : ""}
+                            </span>
+                        </div>
+                        <div class="pl-4 border-l border-ink/10">
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                {entry.data.stack.map(tech => (
+                                    <TechBadge name={tech} />
+                                ))}
+                            </div>
+                             <p class="text-sm text-ink/70 italic">
+                                [Content Loaded: {entry.body.substring(0, 50)}...]
+                            </p>
+                             <a href={`/cv`} class="text-xs font-mono text-bronze hover:underline">>> VIEW_DETAILS</a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
 </BaseLayout>
