@@ -5,4 +5,4 @@ tags: ["DevOps", "Nginx"]
 type: "Note"
 draft: false
 ---
-Most default Nginx configs fail under load because...
+Most default Nginx configs fail under load because of `worker_connections` limits.

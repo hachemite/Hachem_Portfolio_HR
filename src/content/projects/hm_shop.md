@@ -1,6 +1,6 @@
 ---
 title: "CyberTech Infra"
-year: 2026
+year: 2025
 description: "Zero-downtime Docker Swarm architecture for a CTF competition serving 300+ concurrent users."
 stack: ["Docker", "Ansible", "Nginx"]
 image: "/images/cybertechday.png"

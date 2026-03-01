@@ -1,0 +1,8 @@
+name: "LUCID: Dashboard de Monitoring DDoS par IA"
+role: "Demo"
+year: 2026
+stack: ["PYTHON", "FASTAPI", "TENSORFLOW", "DOCKER", "NGINX"]
+details:
+  - "Système de détection temps réel (CNN, basé TNSM) classifiant les flux malveillants avec un temps de réponse de 1.7s."
+visible: true
+lang: "fr"

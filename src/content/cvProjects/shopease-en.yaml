@@ -1,0 +1,8 @@
+name: "ShopEase: High-Performance AI E-Commerce"
+role: "Live Site"
+year: 2026
+stack: ["ANGULAR", "FASTAPI", "SQLITE", "TENSORFLOW", "AUTOENCODER"]
+details:
+  - "Architected a recommendation system serving 35GB+ image data via custom ZIP-Stream Indexing, achieving sub-100ms response times."
+visible: true
+lang: "en"

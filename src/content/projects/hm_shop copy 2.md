@@ -8,8 +8,13 @@ featured: true
 visible: true
 ---
 
+![CyberTech Infrastructure Architecture](/images/cybertechday.png)
+
+---
+
 ## The Problem
 We needed to host a CTF where participants try to hack the server...
 
 ## The Solution
 I built a custom architecture using **Docker Swarm** for orchestration.
+![CyberTech Infrastructure Architecture](/images/cybertechday.png)

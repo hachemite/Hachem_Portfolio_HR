@@ -1,0 +1,3 @@
+category: "Cloud & DevOps"
+items: ["AWS (EC2, VPC, S3)", "Docker", "Kubernetes", "Terraform"]
+priority: 1
