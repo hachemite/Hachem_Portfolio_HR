@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n/ui';
+import { Image } from 'astro:assets';
+
+import profileImage from '../../assets/images/profile.jpg';
+
+interface Props {
+  lang: 'en' | 'fr';
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// --- FETCH & FILTER DATA BASED ON LANGUAGE ---
+const allExp = await getCollection('experience', ({ data }) => data.visible && data.lang === lang);
+const allEdu = await getCollection('education', ({ data }) => data.visible && data.lang === lang);
+const allCerts = await getCollection('certificates', ({ data }) => data.visible && data.lang === lang);
+const allSkills = await getCollection('skills', ({ data }) => data.lang === lang);
+const allCvProjects = await getCollection('cvProjects', ({ data }) => data.visible && data.lang === lang);
+
+// --- APPLY LATEX MAPPING LOGIC ---
+const workExperience = allExp.filter(e => e.data.type === 'Work' || e.data.type === 'Internship')
+  .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+
+const leadership = allExp.filter(e => e.data.type === 'Leadership')
+  .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+
+const honors = allCerts.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const skills = allSkills.sort((a, b) => a.data.priority - b.data.priority);
+const education = allEdu.sort((a, b) => b.data.yearStart - a.data.yearStart);
+const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout 
+    title={lang === 'en' ? 'Hachem Squalli El Houssaini | Resume & CV' : 'Hachem Squalli El Houssaini | CV & Parcours'}
+    description={t('cv.summary.text')}
+    lang={lang}
+>   
+    <div class="max-w-4xl mx-auto bg-white/40 p-6 md:p-12 shadow-sm border border-ink/10">
+        
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-ink pb-6 mb-8 gap-6">
+            
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div class="shrink-0">
+                    <Image 
+                        src={profileImage} 
+                        alt="Hachem Squalli El Houssaini" 
+                        width={237} 
+                        height={237} 
+                        class="w-24 h-24 md:w-32 md:h-32 object-cover border-2 border-ink shadow-hard-sm contrast-110"
+                        loading="eager"
+                    />
+                </div>
+
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-ink mb-1 tracking-tight">Hachem Squalli</h1>
+                    <p class="text-lg font-mono text-bronze">{t('hero.role')}</p>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-sm font-mono text-ink/70">
+                        <a href="mailto:workhachem@gmail.com" class="hover:text-bronze">workhachem@gmail.com</a>
+                        <span class="hidden sm:inline">|</span>
+                        <a href="https://github.com/hachemite" class="hover:text-bronze">github.com/hachemite</a>
+                        <span class="hidden sm:inline">|</span>
+                        <span>Fès, Morocco</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href={lang === 'en' ? "/CV_HACHEM_SQUALLI_ELHOUSSAINI_ENGLISH.pdf" : "/CV_HACHEM_SQUALLI_ELHOUSSAINI_FRANCAIS.pdf"} target="_blank" class="shrink-0 flex items-center gap-2 border border-ink bg-sand px-4 py-2 font-mono text-sm font-bold shadow-hard-sm hover:translate-y-[2px] hover:shadow-none transition-all">
+                <span class="bg-bronze text-sand px-1.5 py-0.5 text-[10px] leading-none tracking-wider">PDF</span>
+                {t('cv.download')}
+            </a>
+        </header>
+
+        <section class="mb-10">
+            <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                {t('cv.summary')}
+            </h2>
+            <p class="text-ink/80 leading-relaxed">
+                {t('cv.summary.text')}
+            </p>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                {t('cv.skills')}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                {skills.map(skill => (
+                    <div class="flex items-start gap-2">
+                        <span class="font-bold text-ink whitespace-nowrap">{skill.data.category}:</span>
+                        <span class="text-ink/80">{skill.data.items.join(', ')}</span>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        {workExperience.length > 0 && (
+            <section class="mb-10">
+                <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                    {t('cv.experience')}
+                </h2>
+                <div class="space-y-6">
+                    {workExperience.map(async (job) => {
+                        const { Content } = await job.render();
+                        return (
+                            <div>
+                                <div class="flex flex-col md:flex-row justify-between md:items-baseline mb-2">
+                                    <h3 class="font-bold text-ink text-lg">{job.data.role}</h3>
+                                    <span class="font-mono text-sm text-bronze">
+                                        {job.data.startDate.toISOString().substring(0, 7)} — {job.data.current ? t('cv.present') : job.data.endDate?.toISOString().substring(0, 7)}
+                                    </span>
+                                </div>
+                                <div class="font-mono text-sm text-ink/60 mb-2">{job.data.company} | {job.data.location}</div>
+                                <div class="prose-industrial text-sm">
+                                    <Content />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </section>
+        )}
+
+        {leadership.length > 0 && (
+            <section class="mb-10">
+                <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                    {t('cv.leadership')}
+                </h2>
+                <div class="space-y-6">
+                    {leadership.map(async (role) => {
+                        const { Content } = await role.render();
+                        return (
+                            <div>
+                                <div class="flex flex-col md:flex-row justify-between md:items-baseline mb-2">
+                                    <h3 class="font-bold text-ink text-lg">{role.data.role}</h3>
+                                    <span class="font-mono text-sm text-bronze">
+                                        {role.data.startDate.getFullYear()} — {role.data.current ? t('cv.present') : role.data.endDate?.getFullYear()}
+                                    </span>
+                                </div>
+                                <div class="font-mono text-sm text-ink/60 mb-2">{role.data.company}</div>
+                                <div class="prose-industrial text-sm">
+                                    <Content />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </section>
+        )}
+
+        {cvProjects.length > 0 && (
+            <section class="mb-10">
+                <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                    {t('cv.projects')}
+                </h2>
+                <div class="space-y-6">
+                    {cvProjects.map(proj => (
+                        <div>
+                            <div class="flex flex-col md:flex-row justify-between md:items-baseline mb-1">
+                                
+                                {/* CONDITIONAL LINK RENDER */}
+                                <h3 class="font-bold text-ink text-lg">
+                                    {proj.data.projectLink ? (
+                                        <a 
+                                            href={lang === 'en' ? `/projects/${proj.data.projectLink.id}` : `/fr/projects/${proj.data.projectLink.id}`} 
+                                            class="hover:text-bronze hover:underline decoration-dotted underline-offset-4 transition-colors group"
+                                        >
+                                            {proj.data.name} 
+                                            <span class="text-ink/40 text-sm ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 inline-block transition-transform">↗</span>
+                                        </a>
+                                    ) : (
+                                        proj.data.name
+                                    )}
+                                </h3>
+
+                                <span class="font-mono text-sm text-bronze">{proj.data.year}</span>
+                            </div>
+                            <div class="font-mono text-sm text-ink/80 mb-2">
+                                {proj.data.role && <span class="mr-2 font-bold">{proj.data.role} |</span>}
+                                <span class="text-ink/50 uppercase">{proj.data.stack.join(', ')}</span>
+                            </div>
+                            <ul class="list-none pl-5 text-sm text-ink/80 space-y-1">
+                                {proj.data.details.map(detail => <li>{detail}</li>)}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        )}
+
+        <section class="mb-10">
+            <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                {t('cv.education')}
+            </h2>
+            <div class="space-y-6">
+                {education.map(edu => (
+                    <div>
+                        <div class="flex flex-col md:flex-row justify-between md:items-baseline mb-1">
+                            <h3 class="font-bold text-ink text-lg">{edu.data.degree}</h3>
+                            <span class="font-mono text-sm text-bronze">
+                                {edu.data.yearStart} — {edu.data.yearEnd || t('cv.present')}
+                            </span>
+                        </div>
+                        <div class="font-mono text-sm text-ink/80">{edu.data.institution}</div>
+                        <p class="text-sm text-ink/60 mt-1">{edu.data.details}</p>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        {honors.length > 0 && (
+            <section class="mb-4">
+                <h2 class="text-lg font-bold font-mono text-ink uppercase tracking-widest border-b border-ink/20 pb-2 mb-4">
+                    {t('cv.honors')}
+                </h2>
+                <ul class="space-y-3">
+                    {honors.map(honor => (
+                        <li class="flex flex-col md:flex-row md:items-baseline gap-2">
+                            <span class="font-mono text-sm text-bronze w-24 shrink-0">{honor.data.date}</span>
+                            <span class="font-bold text-ink">{honor.data.title}</span>
+                            <span class="text-ink/60 text-sm hidden md:inline">—</span>
+                            <span class="text-ink/60 text-sm">{honor.data.issuer}</span>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        )}
+
+    </div>
+</BaseLayout>
