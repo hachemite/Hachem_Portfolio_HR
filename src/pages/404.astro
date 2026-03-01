@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 | Page Not Found">
+    
+    <div class="flex flex-col items-center justify-center flex-1 w-full max-w-2xl mx-auto px-4 md:px-0 text-center">
+        
+        <h1 class="text-6xl md:text-8xl font-bold font-sans text-ink mb-1 leading-none">404</h1>
+        <h2 class="text-lg md:text-xl font-bold text-ink mb-3 font-sans tracking-widest uppercase border-b-2 border-bronze pb-1 inline-block">
+            Page_Not_Found
+        </h2>
+        <p class="text-ink/60 mb-6 max-w-md mx-auto leading-relaxed text-sm md:text-base">
+            System is operational, but the requested directory does not exist or has been moved. 
+        </p>
+
+        <div class="w-full bg-[#1e1e1e] text-[#d4d4d4] p-4 md:p-6 rounded-sm shadow-hard text-left font-mono text-xs md:text-sm">
+            
+            <div class="flex flex-col gap-2 md:gap-3">
+                <div class="flex flex-wrap gap-x-2">
+                    <span class="text-[#ce9178]">></span> 
+                    <span>Request:</span> 
+                    <span class="text-[#569cd6]">GET</span> 
+                    <span id="bad-path" class="text-white/50 break-all">/unknown_path</span>
+                </div>
+                
+                <div>
+                    <span class="text-[#ce9178]">></span> 
+                    <span>Status:</span>  
+                    <span class="text-red-400 font-bold ml-1">404 NOT FOUND</span>
+                </div>
+                
+                <div>
+                    <span class="text-[#ce9178]">></span> 
+                    <span>Upstream:</span> 
+                    <span class="text-[#4ec9b0] ml-1">Hachemite_Portfolio</span>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <span class="text-[#ce9178]">></span> 
+                    <span>Action:</span>   
+                    <span class="animate-pulse bg-[#d4d4d4] text-black px-1">_</span>
+                </div>
+            </div>
+
+            <div class="mt-6 opacity-0 animate-[fadeIn_0.5s_ease-in_0.5s_forwards]">
+                <a href="/" class="inline-flex items-center gap-2 border border-[#d4d4d4]/30 hover:border-[#4ec9b0] hover:text-[#4ec9b0] px-4 py-2 transition-colors bg-black/20 text-[#d4d4d4] w-full md:w-auto justify-center">
+                    <span>Return to Root ( ~/ )</span>
+                    <span class="text-lg leading-none mt-[-2px]">↵</span>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+</BaseLayout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const pathSpan = document.getElementById('bad-path');
+        if (pathSpan) {
+            const badUrl = window.location.pathname;
+            pathSpan.textContent = badUrl.length > 40 ? badUrl.substring(0, 40) + '...' : badUrl;
+        }
+    });
+</script>
+
+<style is:global>
+    /* Hides the EN/FR toggle specifically on the 404 page to prevent overlapping */
+    nav .ml-auto { display: none !important; }
+    /* THE ONE-PAGE LOCK 
+       This surgically overrides the heavy margins from your global BaseLayout 
+       so the 404 page never pushes the footer off the screen.
+    */
+    main.layout-main {
+        padding-top: 8rem !important; 
+        padding-bottom: 2rem !important;
+        min-height: calc(100vh - 80px) !important; /* Subtracts roughly the height of your footer */
+        display: flex;
+        flex-direction: column;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
