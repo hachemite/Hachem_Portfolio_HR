@@ -14,4 +14,7 @@ export default defineConfig({
     icon(),
     sitemap() // Now this knows what 'sitemap' is
   ],
+  image: {
+    domains: ['github.com', 'raw.githubusercontent.com', 'i.imgur.com'], // Add your image hosts here
+  }
 });
