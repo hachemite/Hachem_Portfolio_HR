@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+// 1. Fetch All Visible Projects
+const allProjects = await getCollection('projects', ({ data }) => data.visible);
+
+// 2. Sort by Year (Descending), then Title
+const sortedProjects = allProjects.sort((a, b) => {
+    if (b.data.year !== a.data.year) {
+        return b.data.year - a.data.year;
+    }
+    return a.data.title.localeCompare(b.data.title);
+});
+
+// 3. Group by Year
+// Result: { 2026: [ProjectA], 2025: [ProjectB, ProjectC] }
+const projectsByYear = sortedProjects.reduce((acc, project) => {
+    const year = project.data.year;
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(project);
+    return acc;
+}, {} as Record<number, typeof allProjects>);
+
+const years = Object.keys(projectsByYear).map(Number).sort((a, b) => b - a);
+---
+
+<BaseLayout title="Projects | Hachemite">
+    
+    <div class="mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">PROJECTS</h1>
+        <p class="text-lg text-ink/80 max-w-2xl">
+            Selected case studies in infrastructure, automation, and autonomous agents.
+        </p>
+    </div>
+
+    <div class="space-y-24">
+        {years.map(year => (
+            <section class="relative">
+                
+                <div class="flex flex-col md:flex-row gap-8 md:gap-16">
+                    <div class="md:w-32 flex-shrink-0">
+                        <span class="sticky top-24 font-mono text-xl font-bold text-bronze border-b-2 border-bronze pb-1">
+                            {year}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                        {projectsByYear[year].map(project => (
+                            <ProjectCard project={project} />
+                        ))}
+                    </div>
+                </div>
+
+            </section>
+        ))}
+    </div>
+
+</BaseLayout>
