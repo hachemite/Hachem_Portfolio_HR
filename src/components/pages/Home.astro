@@ -1,0 +1,322 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TechBadge from '../TechBadge.astro';
+import BouncyGrid from '../BouncyGrid.astro';
+import Header from '../Header.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  lang: 'en' | 'fr';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+/** Build a locale-aware internal URL */
+const url = (path: string) =>
+  lang === 'en' ? `/${path}`.replace(/\/+/, '/') : `/fr/${path}`.replace(/\/+/, '/');
+
+// ── Config ───────────────────────────────────────────────────────────────────
+const CURRENT_BOOK = "Designing Data-Intensive Applications";
+const BOOK_LINK   = "https://dataintensive.net/";
+
+// ── Content ──────────────────────────────────────────────────────────────────
+const experience = await getCollection('experience', ({ data }) =>
+  data.visible && data.lang === lang
+);
+const sortedExperience = experience
+  .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
+  .slice(0, 2);
+
+const allProjects = await getCollection('projects', ({ data }) => data.visible);
+const sortedProjects = allProjects
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+
+const allWiki    = await getCollection('wiki');
+const latestWiki = allWiki.sort(
+  (a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf()
+)[0];
+const commitTitle = latestWiki?.data.title ?? "Initializing Wiki Infrastructure";
+const commitLink  = latestWiki ? `/wiki/${latestWiki.slug}` : "/wiki";
+
+// ── Core Stack ───────────────────────────────────────────────────────────────
+const myStack = [
+  "Python", "C++", "Docker", "Kubernetes", "AWS",
+  "Terraform", "Nginx", "Linux", "Node.js", "Astro",
+];
+
+// ── GitHub Activity (last 30 days) ───────────────────────────────────────────
+const DAYS = 30;
+let systemActivity: number[] = Array(DAYS).fill(0);
+
+try {
+  const res = await fetch('https://api.github.com/users/hachemite/events/public', {
+    headers: { 'User-Agent': 'hachemite-portfolio' },
+  });
+
+  if (res.ok) {
+    const events: Array<{ created_at: string }> = await res.json();
+    const now = Date.now();
+
+    for (const event of events) {
+      const diffDays = Math.floor(
+        (now - new Date(event.created_at).valueOf()) / 86_400_000
+      );
+      if (diffDays < DAYS) systemActivity[diffDays] += 1;
+    }
+
+    const peak = Math.max(...systemActivity, 1);
+    systemActivity = systemActivity.map(v => Math.max((v / peak) * 100, 5));
+  } else {
+    systemActivity = Array(DAYS).fill(10);
+  }
+} catch {
+  systemActivity = Array(DAYS).fill(10);
+}
+---
+
+<BaseLayout 
+    title={lang === 'en' ? 'Hachem Squalli El Houssaini | Software & AI Engineer' : 'Hachem Squalli El Houssaini | Ingénieur Logiciel & IA'}
+    description={t('home.signal.text')}
+    lang={lang}
+>
+  <!-- Mobile hero grid -->
+  <div class="md:hidden w-full flex justify-center mb-2 pt-16">
+    <BouncyGrid instanceId="mobile" />
+  </div>
+
+  <Header lang={lang} />
+
+  <div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 md:gap-16 items-start mt-2">
+
+    <!-- ── Left Column ─────────────────────────────────────────────────────── -->
+    <div class="space-y-12">
+
+      <!-- Hero Bio -->
+      <section class="max-w-2xl">
+        <p class="text-ink/80 text-lg leading-relaxed mb-5">
+          {lang === 'en' ? (
+            <>
+              Hello, I'm a <strong class="text-ink font-bold">Software and Artificial Intelligence Engineer</strong>.
+              I build <strong class="text-ink font-bold">resilient infrastructure</strong> and design{' '}
+              <strong class="text-ink font-bold">intelligent pipelines</strong>. I am currently seeking a{' '}
+              <strong class="text-ink font-bold">challenging internship</strong> to apply my expertise in{' '}
+              <strong class="text-ink font-bold">DevOps</strong>,{' '}
+              <strong class="text-ink font-bold">Backend architecture</strong>, and{' '}
+              <strong class="text-ink font-bold">AI</strong>.
+            </>
+          ) : (
+            <>
+              Bonjour, je suis un <strong class="text-ink font-bold">Ingénieur en Génie Logiciel et Intelligence Artificielle</strong>.
+              Je construis des <strong class="text-ink font-bold">infrastructures résilientes</strong> et conçois des{' '}
+              <strong class="text-ink font-bold">pipelines intelligents</strong>. Je recherche actuellement un{' '}
+              <strong class="text-ink font-bold">stage de fin d'études (PFA)</strong> pour appliquer mon expertise en{' '}
+              <strong class="text-ink font-bold">DevOps</strong>,{' '}
+              <strong class="text-ink font-bold">Architecture Backend</strong>, et{' '}
+              <strong class="text-ink font-bold">IA</strong>.
+            </>
+          )}
+        </p>
+
+        <ul class="space-y-2 font-mono text-sm text-ink/70 mb-8">
+          {lang === 'en' ? (
+            <>
+              <li><span class="text-bronze font-bold"></span> Currently optimizing high-traffic infra @ <strong class="text-ink">SecOps</strong></li>
+              <li><span class="text-bronze font-bold"></span> Seeking a <strong class="text-bronze">PFA DevOps/AI Internship</strong> — July–Aug 2026</li>
+            </>
+          ) : (
+            <>
+              <li><span class="text-bronze font-bold"></span> Optimisation de l'infra à fort trafic @ <strong class="text-ink">SecOps</strong></li>
+              <li><span class="text-bronze font-bold"></span> À la recherche d'un <strong class="text-bronze">stage PFA DevOps/IA</strong> — Juillet–Août 2026</li>
+            </>
+          )}
+        </ul>
+
+        <a
+          href={url('cv')}
+          class="inline-flex items-center gap-2 border border-ink bg-ink text-sand
+                 hover:bg-bronze hover:border-bronze px-6 py-3 font-mono text-sm
+                 font-bold transition-colors duration-200"
+        >
+          {t('hero.cv_btn')} <span>→</span>
+        </a>
+      </section>
+
+      <!-- 01. Signal / Projects -->
+      <section>
+        <h2 class="font-bold text-2xl mb-6 text-ink flex items-center gap-3 border-b-2 border-ink pb-2">
+          <span class="text-bronze">01.</span> {t('home.signal')}
+        </h2>
+
+        <div class="mb-6">
+          <span class="text-ink/40 font-mono text-sm block mb-3">{t('home.focus')}</span>
+        <div class="flex flex-wrap gap-2 font-mono text-sm">
+            {(t('home.focus.tags') as readonly string[]).map((tag) => (
+              <span
+                class="border border-ink/20 bg-white/40 px-3 py-1.5 text-ink/80
+                       hover:border-bronze transition-colors cursor-default"
+              >
+                [{tag}]
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div class="font-mono text-sm text-ink/60 mb-6">
+          {t('home.indexing.prefix')}
+          <span class="font-bold text-ink">{allProjects.length}</span>
+          {t('home.indexing.suffix')}
+        </div>
+
+        <div class="space-y-6 mb-6">
+          {sortedProjects.map((project) => (
+            <a
+              href={url(`projects/${project.slug}`)}
+              class="block group relative pl-4 border-l-2 border-ink/20 hover:border-bronze transition-colors"
+            >
+              <h3 class="font-bold text-lg text-ink group-hover:text-bronze transition-colors">
+                {project.data.title}
+              </h3>
+              <p class="text-ink/70 text-sm mt-1 line-clamp-2">
+                {project.data.description}
+              </p>
+            </a>
+          ))}
+        </div>
+
+        <a
+          href={url('projects')}
+          class="inline-flex items-center gap-2 text-bronze font-mono font-bold
+                 hover:underline decoration-dotted underline-offset-4 transition-colors"
+        >
+          >> {t('home.view_all_projects')}
+        </a>
+      </section>
+
+      <!-- 02. Logs / Experience -->
+      <section>
+        <h2 class="font-bold text-2xl mb-6 text-ink flex items-center gap-3 border-b-2 border-ink pb-2">
+          <span class="text-bronze">02.</span> {t('home.logs')}
+        </h2>
+
+        <div class="space-y-4 mb-6">
+          {sortedExperience.map((entry) => (
+            <a
+              href={url('cv')}
+              class="group grid grid-cols-[80px_1fr] md:grid-cols-[100px_1fr] gap-4 items-baseline"
+            >
+              <span class="font-mono text-xs text-ink/50 group-hover:text-bronze transition-colors">
+                {entry.data.startDate.toISOString().substring(0, 7)}
+              </span>
+              <h3 class="font-bold text-base text-ink group-hover:underline decoration-dotted underline-offset-4 transition-all leading-tight m-0">
+                {entry.data.role}{' '}
+                <span class="text-ink/40 font-normal">@ {entry.data.company}</span>
+              </h3>
+            </a>
+          ))}
+        </div>
+
+        <a
+          href={url('cv')}
+          class="inline-flex items-center gap-2 text-bronze font-mono font-bold
+                 hover:underline decoration-dotted underline-offset-4 transition-colors"
+        >
+          >> {t('home.view_full_cv')}
+        </a>
+      </section>
+
+      <!-- Contact CTA -->
+      <section class="border border-ink bg-white/40 p-6 md:p-8">
+        <p class="text-lg mb-6 font-mono text-ink/80">{t('home.contact.text')}</p>
+        <a
+          href="mailto:contact@hachemite.com"
+          class="inline-flex items-center justify-center border border-ink bg-ink text-sand
+                 hover:bg-bronze hover:border-bronze px-6 py-3 font-mono text-sm font-bold
+                 transition-colors"
+        >
+          {t('home.email_btn')} ↗
+        </a>
+      </section>
+
+      <!-- Telemetry -->
+      <section class="border-t border-ink/20 pt-8 mt-12">
+        <h2 class="font-mono text-sm font-bold text-ink/50 mb-6 tracking-widest uppercase">
+          [TELEMETRY_&_STATS]
+        </h2>
+
+        <!-- Core Stack -->
+        <div class="mb-8 pb-8 border-b border-ink/10">
+          <span class="text-ink/40 block mb-3 font-mono text-sm">>> CORE_STACK</span>
+          <div class="flex flex-wrap gap-2">
+            {myStack.map((tech) => <TechBadge name={tech} />)}
+          </div>
+        </div>
+
+        <!-- Activity Graph -->
+        <div class="mb-8 pb-8 border-b border-ink/10">
+          <span class="text-ink/40 block mb-3 font-mono text-sm">
+            >> {t('home.activity.label')}
+          </span>
+
+          <div
+            class="w-full h-12 flex flex-row-reverse items-end justify-start gap-[3px] overflow-hidden opacity-90"
+            aria-hidden="true"
+            title="GitHub Activity — Last 30 Days"
+          >
+            {systemActivity.map((val, i) => (
+              <div
+                class={`w-1.5 md:w-2 shrink-0 transition-colors ${
+                  i === 0
+                    ? 'bg-bronze animate-pulse shadow-[0_0_5px_rgba(140,123,101,0.5)]'
+                    : 'bg-ink'
+                }`}
+                style={`height:${val}%;opacity:${Math.min(val / 100 + 0.15, 1)};`}
+              />
+            ))}
+          </div>
+
+          <div class="flex justify-between mt-2 text-[10px] font-mono text-ink/40">
+            <span>[T-MINUS_30D]</span>
+            <span class="text-bronze animate-pulse">[CURRENT_PULSE]</span>
+          </div>
+        </div>
+
+        <!-- Latest Commit + Current Read -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 font-mono text-sm">
+          <div>
+            <span class="text-bronze block mb-1">{t('home.commit')}</span>
+            <a
+              href={commitLink}
+              class="underline decoration-dotted underline-offset-4 hover:text-bronze transition-colors line-clamp-2"
+            >
+              {commitTitle}
+            </a>
+          </div>
+          <div>
+            <span class="text-bronze block mb-1">{t('home.reading')}</span>
+            <a
+              href={BOOK_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline decoration-dotted underline-offset-4 hover:text-bronze transition-colors line-clamp-2"
+            >
+              {CURRENT_BOOK}
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <!-- ── End Left Column ──────────────────────────────────────────────────── -->
+
+    <!-- Desktop sticky grid -->
+    <div class="hidden md:flex w-full sticky top-6 justify-end">
+      <BouncyGrid instanceId="desktop" />
+    </div>
+
+  </div>
+</BaseLayout>
+

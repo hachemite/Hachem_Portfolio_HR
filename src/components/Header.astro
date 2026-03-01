@@ -1,0 +1,69 @@
+---
+import { useTranslations } from '../i18n/ui';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const isAvailable = true; 
+
+const socialLinks = [
+  { 
+    label: "GitHub", 
+    href: "https://github.com/hachemite",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`
+  }, 
+  { 
+    label: "LinkedIn", 
+    href: "https://linkedin.com/in/hachemite",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>`
+  },
+  { 
+    label: "Email", 
+    href: "mailto:contact@hachemite.com",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>`
+  }
+];
+---
+
+<header class="w-full pt-0 md:pt-4 mb-4 md:mb-8">
+    <div class="flex flex-col gap-2 w-full">
+        
+        <div class="flex md:hidden w-full gap-2 mb-2">
+            {socialLinks.map(link => (
+                <a href={link.href} target="_blank" title={link.label} class="flex-1 flex justify-center items-center py-3 border border-ink/20 text-ink/60 bg-transparent active:bg-bronze active:text-white transition-colors">
+                    <span class="sr-only">{link.label}</span>
+                    <Fragment set:html={link.icon} />
+                </a>
+            ))}
+        </div>
+
+        <h1 class="text-5xl md:text-[5.5rem] lg:text-[6.5rem] font-sans font-extrabold text-ink mb-0 tracking-tighter leading-none w-full">
+            <span class="text-bronze">H</span>achem <br class="hidden md:block lg:hidden" />
+            <span class="text-bronze">S</span>qualli <span class="text-bronze">E</span>l <span class="text-bronze">H</span>oussaini
+        </h1>
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink/10 pb-4 w-full mt-3 gap-4">
+            
+            <p class="text-ink/80 font-bold text-lg md:text-xl whitespace-normal break-words w-full md:w-auto">
+                {t('hero.role')}
+            </p>
+            
+<div class="flex flex-wrap items-center gap-4 text-xs font-mono shrink-0">
+                <span class="text-ink/50 tracking-widest">[LOC]: FÈS, MA</span>
+                
+                {isAvailable ? (
+                    <span class="flex items-center gap-2 text-ink/80 font-bold tracking-wide whitespace-nowrap">
+                        <span class="w-2.5 h-2.5 rounded-full bg-info"></span>
+                        AVAILABLE
+                    </span>
+                ) : (
+                    <span class="flex items-center gap-2 text-ink/40 font-bold tracking-wide whitespace-nowrap">
+                        <span class="w-2.5 h-2.5 rounded-full bg-danger"></span>
+                        UNAVAILABLE
+                    </span>
+                )}
+            </div>
+        </div>
+        
+    </div>
+</header>
