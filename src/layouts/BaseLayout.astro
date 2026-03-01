@@ -1,45 +1,79 @@
 ---
 import '../styles/global.css';
-// FIX: You must import components before using them!
 import DesktopNav from '../components/nav/DesktopNav.astro';
 import MobileBottomBar from '../components/nav/MobileBottomBar.astro';
 
 interface Props {
 	title: string;
 	description?: string;
+    image?: string; // Used for social media link previews
+    lang?: 'en' | 'fr'; // Used for Google language targeting
 }
 
 const { 
   title, 
-  description = "Engineering Portfolio of Hachemite - Chef Technique @ SecOps & ILIA Student." 
+  description = "Hachem Squalli El Houssaini - Software & AI Engineer. Technical Lead at SecOps, specializing in resilient infrastructure, DevOps, and Autonomous Agents.",
+  image = "/profile.jpg", // Default social sharing image
+  lang = 'en'
 } = Astro.props;
+
+// --- SEO: CANONICAL & HREFLANG LOGIC ---
+// Ensures Google knows the exact URL of this page
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Calculates the URL for the alternate language version
+const altLang = lang === 'en' ? 'fr' : 'en';
+const altPath = lang === 'en' 
+    ? `/fr${Astro.url.pathname === '/' ? '' : Astro.url.pathname}` 
+    : Astro.url.pathname.replace(/^\/fr/, '') || '/';
+const alternateURL = new URL(altPath, Astro.site);
 
 // Schema Data (SEO)
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Hachem Squalli El Houssaini", 
-  "jobTitle": "Chef Technique",
+  "jobTitle": "Software Engineer & Chef Technique",
+  "url": Astro.site,
+  "image": new URL("/profile.jpg", Astro.site).toString(),
   "affiliation": {
     "@type": "Organization",
     "name": "SecOps Club"
   },
-  "knowsAbout": ["Docker", "Kubernetes", "AI", "Systems Engineering"]
+  "knowsAbout": ["Docker", "Kubernetes", "Artificial Intelligence", "Cloud Architecture"]
 };
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<meta property="og:type" content="profile" />
-		<meta property="og:title" content={title} />
 		
-		<title>{title}</title>
+        <title>{title}</title>
+        <meta name="title" content={title} />
+		<meta name="description" content={description} />
+        <meta name="author" content="Hachem Squalli El Houssaini" />
+
+        <link rel="canonical" href={canonicalURL} />
+        <link rel="alternate" hreflang={lang} href={canonicalURL} />
+        <link rel="alternate" hreflang={altLang} href={alternateURL} />
+        <link rel="alternate" hreflang="x-default" href={new URL(lang === 'en' ? Astro.url.pathname : altPath, Astro.site)} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(image, Astro.site)} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={new URL(image, Astro.site)} />
+
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 	</head>
 	
@@ -54,7 +88,7 @@ const schemaData = {
 			<slot />
 		</main>
 
-<footer class="w-full max-w-6xl mx-auto px-4 py-8 mt-auto border-t border-ink/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-ink/50 mb-16 md:mb-0">
+        <footer class="w-full max-w-6xl mx-auto px-4 py-8 mt-auto border-t border-ink/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-ink/50 mb-16 md:mb-0">
             <div>
                 &copy; {new Date().getFullYear()} Hachemite. All rights reserved.
             </div>
