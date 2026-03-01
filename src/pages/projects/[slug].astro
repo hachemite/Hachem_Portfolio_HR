@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TechBadge from '../../components/TechBadge.astro';
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets'; // 1. ADD THIS IMPORT
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => data.visible);
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { title, description, year, stack, repoUrl, demoUrl, image } = project.data;
+---
+
+<BaseLayout 
+    title={`${title} | Case Study | Hachem Squalli`} 
+    description={description}
+    image={image}
+>    
+    <div class="mb-8">
+        <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs text-ink/60 hover:text-bronze transition-colors group">
+            <span class="group-hover:-translate-x-1 transition-transform">←</span>
+            BACK_TO_PROJECTS
+        </a>
+    </div>
+
+    <article>
+        <header class="mb-12 border-b-2 border-ink pb-8">
+            <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-4">
+                <h1 class="text-4xl md:text-6xl font-bold font-sans text-ink mb-0 leading-none">
+                    {title}
+                </h1>
+                <span class="font-mono text-xl text-bronze font-bold">
+                    {year}
+                </span>
+            </div>
+
+            <p class="text-lg md:text-xl text-ink/80 max-w-2xl leading-relaxed mb-6">
+                {description}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-6 font-mono text-xs">
+                <div class="flex flex-wrap gap-2">
+                    {stack.map(tech => (
+                        <TechBadge name={tech} />
+                    ))}
+                </div>
+
+                <div class="flex gap-4 ml-auto border-l border-ink/20 pl-6">
+                    {repoUrl && (
+                        <a href={repoUrl} target="_blank" class="flex items-center gap-1 hover:text-bronze transition-colors">
+                            <Icon name="simple-icons:github" />
+                            <span>SOURCE</span>
+                        </a>
+                    )}
+                    {demoUrl && (
+                        <a href={demoUrl} target="_blank" class="flex items-center gap-1 hover:text-bronze transition-colors">
+                            <Icon name="mdi:external-link" />
+                            <span>LIVE_DEMO</span>
+                        </a>
+                    )}
+                </div>
+            </div>
+        </header>
+
+{image && (
+            <div class="mb-16 w-full aspect-video border-2 border-ink bg-sand shadow-hard relative overflow-hidden">
+                <Image 
+                    src={image} 
+                    alt={`Cover for ${title}`}
+                    width={1200} 
+                    height={675} 
+                    format="webp"
+                    class="w-full h-full object-cover image-rendering-pixelated contrast-110" 
+                    loading="eager"
+                />
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_4px,3px_100%] pointer-events-none mix-blend-color-dodge opacity-20"></div>
+            </div>
+        )}
+
+        <div class="max-w-none prose-industrial">
+            <Content />
+        </div>
+
+    </article>
+
+    <hr class="border-ink/20 mt-16 mb-0" />
+    <div class="flex justify-between font-mono text-xs pt-8 pb-16">
+        <a href="/projects" class="hover:text-bronze inline-flex items-center gap-1">
+            <span>←</span> ALL PROJECTS
+        </a>
+        <a href="#" class="hover:text-bronze inline-flex items-center gap-1">
+            SCROLL_TOP <span>↑</span>
+        </a>
+    </div>
+
+</BaseLayout>
