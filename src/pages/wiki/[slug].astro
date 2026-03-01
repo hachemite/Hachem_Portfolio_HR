@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { marked } from 'marked';
+
+interface Props {
+    note: any;
+}
+
+export async function getStaticPaths() {
+    // 1. Fetch all issues at build time
+    const GITHUB_REPO = 'hachemite/wiki-logs'; // UPDATE THIS
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open`);
+    
+    if (!response.ok) return [];
+
+    const issues = await response.json();
+    const notes = issues.filter((issue: any) => !issue.pull_request);
+
+    // 2. Map issue numbers to the [slug] parameter
+    return notes.map((note: any) => ({
+        params: { slug: note.number.toString() },
+        props: { note },
+    }));
+}
+
+const { note } = Astro.props;
+
+// 3. Convert GitHub Markdown to HTML
+const contentHtml = marked.parse(note.body || '*No content provided.*');
+const publishDate = new Date(note.created_at);
+const rawText = note.body ? note.body.replace(/[#*`_>\[\]]/g, '').substring(0, 150) + '...' : 'Technical Wiki Note';
+---
+
+<BaseLayout 
+    title={`${note.title} | Wiki | Hachem Squalli`}
+    description={rawText}
+>
+    
+    <div class="mb-8">
+        <a href="/wiki" class="font-mono text-xs text-ink/60 hover:text-bronze hover:underline decoration-dotted underline-offset-4">
+            cd .. 
+        </a>
+    </div>
+
+    <article class="max-w-2xl mx-auto">
+        
+        <header class="mb-12 border-b-2 border-ink pb-6">
+            <div class="font-mono text-xs text-ink/40 mb-2 flex gap-4">
+                <span>FILE_ID: GH_ISSUE_{note.number}</span>
+                <span>AUTHOR: {note.user.login}</span> 
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-bold font-sans text-ink mb-6 leading-tight">
+                {note.title}
+            </h1>
+
+            <div class="flex items-center justify-between font-mono text-xs">
+                <span class="text-bronze bg-sand border border-bronze px-2 py-1">
+                    {publishDate.toISOString().split('T')[0]}
+                </span>
+                <div class="flex gap-2 text-ink/60">
+                    {note.labels.map((t: any) => <span>#{t.name}</span>)}
+                </div>
+            </div>
+        </header>
+
+        <div class="prose-industrial" set:html={contentHtml}></div>
+
+    </article>
+
+    <div class="mt-24 pt-8 border-t border-ink/10 font-mono text-xs text-center text-ink/30">
+        --- END OF FILE ---
+    </div>
+
+</BaseLayout>
