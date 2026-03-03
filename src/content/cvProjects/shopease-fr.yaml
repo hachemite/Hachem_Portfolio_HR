@@ -1,8 +1,8 @@
-name: "ShopEase: E-Commerce IA Haute Performance"
-role: "Site Live"
+name: 'ShopEase: E-Commerce IA Haute Performance'
+role: 'Site Live'
 year: 2026
-stack: ["ANGULAR", "FASTAPI", "SQLITE", "TENSORFLOW", "AUTOENCODER"]
+stack: ['ANGULAR', 'FASTAPI', 'SQLITE', 'TENSORFLOW', 'AUTOENCODER']
 details:
-  - "Système de recommandation non supervisé servant 35GB+ de données via Indexation Custom ZIP-Stream (réponse <100ms)."
+  - 'Système de recommandation non supervisé servant 35GB+ de données via Indexation Custom ZIP-Stream (réponse <100ms).'
 visible: true
-lang: "fr"
+lang: 'fr'

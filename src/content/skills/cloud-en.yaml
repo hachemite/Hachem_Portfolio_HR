@@ -1,4 +1,13 @@
-category: "Cloud & DevOps"
-items: ["AWS (EC2, VPC, S3, IAM)", "Docker", "Docker Compose", "Nginx", "Terraform", "GitHub Actions (CI/CD)", "Linux VPS"]
+category: 'Cloud & DevOps'
+items:
+  [
+    'AWS (EC2, VPC, S3, IAM)',
+    'Docker',
+    'Docker Compose',
+    'Nginx',
+    'Terraform',
+    'GitHub Actions (CI/CD)',
+    'Linux VPS',
+  ]
 priority: 1
-lang: "en"
+lang: 'en'

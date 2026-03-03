@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "check": "astro check",
     "preview": "astro preview",
-    "astro": "astro"
+    "check": "astro check",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "qa": "npm run format && npm run lint && npm run check"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -22,6 +24,14 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.3.3"
+    "@types/node": "^25.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.6.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2"
   }
 }

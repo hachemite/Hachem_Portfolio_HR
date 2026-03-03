@@ -4,17 +4,17 @@ import DesktopNav from '../components/nav/DesktopNav.astro';
 import MobileBottomBar from '../components/nav/MobileBottomBar.astro';
 
 interface Props {
-	title: string;
-	description?: string;
-    image?: string; // Used for social media link previews
-    lang?: 'en' | 'fr'; // Used for Google language targeting
+  title: string;
+  description?: string;
+  image?: string; // Used for social media link previews
+  lang?: 'en' | 'fr'; // Used for Google language targeting
 }
 
-const { 
-  title, 
-  description = "Hachem Squalli El Houssaini - Software & AI Engineer. Technical Lead at SecOps, specializing in resilient infrastructure, DevOps, and Autonomous Agents.",
-  image = "/profile.jpg", // Default social sharing image
-  lang = 'en'
+const {
+  title,
+  description = 'Hachem Squalli El Houssaini - Software & AI Engineer. Technical Lead at SecOps, specializing in resilient infrastructure, DevOps, and Autonomous Agents.',
+  image = '/profile.jpg', // Default social sharing image
+  lang = 'en',
 } = Astro.props;
 
 // --- SEO: CANONICAL & HREFLANG LOGIC ---
@@ -23,84 +23,110 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Calculates the URL for the alternate language version
 const altLang = lang === 'en' ? 'fr' : 'en';
-const altPath = lang === 'en' 
-    ? `/fr${Astro.url.pathname === '/' ? '' : Astro.url.pathname}` 
+const altPath =
+  lang === 'en'
+    ? `/fr${Astro.url.pathname === '/' ? '' : Astro.url.pathname}`
     : Astro.url.pathname.replace(/^\/fr/, '') || '/';
 const alternateURL = new URL(altPath, Astro.site);
 
 // Schema Data (SEO)
 const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Hachem Squalli El Houssaini", 
-  "jobTitle": "Software Engineer & Chef Technique",
-  "url": Astro.site,
-  "image": new URL("/profile.jpg", Astro.site).toString(),
-  "affiliation": {
-    "@type": "Organization",
-    "name": "SecOps Club"
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Hachem Squalli El Houssaini',
+  jobTitle: 'Software Engineer & Chef Technique',
+  url: Astro.site,
+  image: new URL('/profile.jpg', Astro.site).toString(),
+  affiliation: {
+    '@type': 'Organization',
+    name: 'SecOps Club',
   },
-  "knowsAbout": ["Docker", "Kubernetes", "Artificial Intelligence", "Cloud Architecture"]
+  knowsAbout: ['Docker', 'Kubernetes', 'Artificial Intelligence', 'Cloud Architecture'],
 };
 ---
 
 <!doctype html>
 <html lang={lang} class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		
-        <title>{title}</title>
-        <meta name="title" content={title} />
-		<meta name="description" content={description} />
-        <meta name="author" content="Hachem Squalli El Houssaini" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-        <link rel="canonical" href={canonicalURL} />
-        <link rel="alternate" hreflang={lang} href={canonicalURL} />
-        <link rel="alternate" hreflang={altLang} href={alternateURL} />
-        <link rel="alternate" hreflang="x-default" href={new URL(lang === 'en' ? Astro.url.pathname : altPath, Astro.site)} />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Hachem Squalli El Houssaini" />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonicalURL} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={new URL(image, Astro.site)} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang={lang} href={canonicalURL} />
+    <link rel="alternate" hreflang={altLang} href={alternateURL} />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(lang === 'en' ? Astro.url.pathname : altPath, Astro.site)}
+    />
 
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={canonicalURL} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={new URL(image, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
 
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-	</head>
-	
-	<body class="bg-sand text-ink overflow-x-hidden min-h-screen flex flex-col relative pb-20 md:pb-0">
-		
-        <DesktopNav />
-        <MobileBottomBar />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
 
-        <div id="canvas-layer" class="fixed inset-0 w-full h-full z-canvas pointer-events-none opacity-50"></div>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+    <script is:inline>
+      console.log(
+        '%c[SYSTEM STATUS]: ALL SYSTEMS NOMINAL',
+        'color: #8C7B65; font-family: monospace; font-weight: bold;'
+      );
+      console.log(
+        ">> ROUTING: The world wide web is a vast network of interconnected nodes, and you've successfully navigated to this portfolio site. Welcome!"
+      );
+      console.log('>> REPO: https://github.com/hachemite/portfolio');
+      console.log('>> Looking for bugs? Submit a PR.');
+    </script>
+  </head>
 
-		<main class="layout-main relative z-base flex-grow">
-			<slot />
-		</main>
+  <body
+    class="bg-sand text-ink relative flex min-h-screen flex-col overflow-x-hidden pb-20 md:pb-0"
+  >
+    <DesktopNav />
+    <MobileBottomBar />
 
-        <footer class="w-full max-w-6xl mx-auto px-4 py-8 mt-auto border-t border-ink/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-ink/50 mb-16 md:mb-0">
-            <div>
-                &copy; {new Date().getFullYear()} Hachemite. All rights reserved.
-            </div>
+    <div
+      id="canvas-layer"
+      class="z-canvas pointer-events-none fixed inset-0 h-full w-full opacity-50"
+    >
+    </div>
 
-            <div class="flex gap-4 items-center">
-                <a href="https://github.com/hachemite" target="_blank" class="hover:text-bronze transition-colors">
-                    Source Code ↗
-                </a>
-                <span class="opacity-30">|</span>
-                <span>Last Update: 2026-02</span>
-            </div>
-        </footer>
+    <main class="layout-main z-base relative flex-grow">
+      <slot />
+    </main>
 
-	</body>
+    <footer
+      class="border-ink/10 text-ink/50 mx-auto mt-auto mb-16 flex w-full max-w-6xl flex-col items-center justify-between gap-4 border-t px-4 py-8 font-mono text-xs md:mb-0 md:flex-row"
+    >
+      <div>
+        &copy; {new Date().getFullYear()} Hachemite. All rights reserved.
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="https://github.com/hachemite"
+          target="_blank"
+          class="hover:text-bronze transition-colors"
+        >
+          Source Code ↗
+        </a>
+        <span class="opacity-30">|</span>
+        <span>Last Update: 2026-02</span>
+      </div>
+    </footer>
+  </body>
 </html>

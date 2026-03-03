@@ -1,4 +1,4 @@
-category: "Outils Pro"
-items: ["Git (GitFlow)", "GitHub", "Jira (Agile)", "Maven", "Docker Hub"]
+category: 'Outils Pro'
+items: ['Git (GitFlow)', 'GitHub', 'Jira (Agile)', 'Maven', 'Docker Hub']
 priority: 5
-lang: "fr"
+lang: 'fr'

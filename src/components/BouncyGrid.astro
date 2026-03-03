@@ -17,253 +17,260 @@ const gridHeight = isMobile ? 310 : 870;
 ---
 
 <div class="master-container mx-auto" id={`zone-of-dames-${instanceId}`}>
-    <div id={`dots-layer-${instanceId}`} class="dots-layer"></div>
-    
-    <Image 
-        src={imageSrc} 
-        alt="Hachemite Avatar" 
-        width={gridWidth} 
-        height={gridHeight}
-        loading="eager" 
-        format="webp" class="front-image image-rendering-pixelated" 
-    />
-    
-    <ul id={`grid-${instanceId}`} class="bouncy-grid"></ul>
+  <div id={`dots-layer-${instanceId}`} class="dots-layer"></div>
+
+  <Image
+    src={imageSrc}
+    alt="Hachemite Avatar"
+    width={gridWidth}
+    height={gridHeight}
+    loading="eager"
+    format="webp"
+    class="front-image image-rendering-pixelated"
+  />
+
+  <ul id={`grid-${instanceId}`} class="bouncy-grid"></ul>
 </div>
 
 <style is:global>
-    :root {
-        --cyl-width: 70px;
-        --cyl-height: 70px;
-        --cyl-depth: 10px;
-        --cyl-half-depth: calc(var(--cyl-depth) / 2);
-        --cyl-radius: calc(var(--cyl-width) / 2);
-    }
+  :root {
+    --cyl-width: 70px;
+    --cyl-height: 70px;
+    --cyl-depth: 10px;
+    --cyl-half-depth: calc(var(--cyl-depth) / 2);
+    --cyl-radius: calc(var(--cyl-width) / 2);
+  }
 
-    .master-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: default; 
-        perspective: 1200px;
-        max-width: 100%;
-    }
+  .master-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    perspective: 1200px;
+    max-width: 100%;
+  }
 
-    .dots-layer {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 10;
-        pointer-events: none; 
-    }
+  .dots-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+  }
 
-    .cyber-dot {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        background-color: var(--color-bronze);
-        transform: translate(-50%, -50%);
-    }
+  .cyber-dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: var(--color-bronze);
+    transform: translate(-50%, -50%);
+  }
 
-    .front-image {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 20;
-        pointer-events: none; 
-        mix-blend-mode: multiply; 
-        object-fit: cover;
-    }
+  .front-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    object-fit: cover;
+  }
 
-    .bouncy-grid {
-        display: grid;
-        gap: 10px; 
-        width: 100%;
-        height: 100%;
-        list-style: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        z-index: 15;
-    }
+  .bouncy-grid {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 15;
+  }
 
-    .bouncy-grid li {
-        position: relative;
-        width: var(--cyl-width);
-        height: var(--cyl-height);
-        perspective: 1000px;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
+  .bouncy-grid li {
+    position: relative;
+    width: var(--cyl-width);
+    height: var(--cyl-height);
+    perspective: 1000px;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 
-    .bouncy-grid li::before,
-    .bouncy-grid li::after {
-        display: none !important;
-        content: none !important;
-    }
+  .bouncy-grid li::before,
+  .bouncy-grid li::after {
+    display: none !important;
+    content: none !important;
+  }
 
-    .cylinder-wrapper {
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        cursor: pointer;
-        will-change: transform;
-    }
+  .cylinder-wrapper {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    will-change: transform;
+  }
 
-    .cylinder-wrapper:hover {
-        transform: rotateX(25deg) rotateY(-25deg) rotateZ(0deg);
-    }
+  .cylinder-wrapper:hover {
+    transform: rotateX(25deg) rotateY(-25deg) rotateZ(0deg);
+  }
 
-    .cylinder-wrapper.flipped {
-        transform: rotateX(0deg) rotateY(180deg) rotateZ(180deg);
-    }
+  .cylinder-wrapper.flipped {
+    transform: rotateX(0deg) rotateY(180deg) rotateZ(180deg);
+  }
 
-    .cylinder-wrapper.flipped:hover {
-        transform: rotateX(25deg) rotateY(155deg) rotateZ(180deg);
-    }
+  .cylinder-wrapper.flipped:hover {
+    transform: rotateX(25deg) rotateY(155deg) rotateZ(180deg);
+  }
 
-    .top, .bottom {
-        width: var(--cyl-width);
-        height: var(--cyl-height);
-        border-radius: 50%;
-        position: absolute;
-        top: 50%; left: 50%;
-        translate: -50% -50%;
-        border: none; 
-        backface-visibility: hidden; 
-    }
+  .top,
+  .bottom {
+    width: var(--cyl-width);
+    height: var(--cyl-height);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    border: none;
+    backface-visibility: hidden;
+  }
 
-    .top {
-        background: var(--color-sand);
-        transform: translateZ(var(--cyl-half-depth));
-    }
+  .top {
+    background: var(--color-sand);
+    transform: translateZ(var(--cyl-half-depth));
+  }
 
-    .bottom {
-        background: var(--color-ink);
-        transform: translateZ(calc(-1 * var(--cyl-half-depth))) rotateY(180deg);
-    }
+  .bottom {
+    background: var(--color-ink);
+    transform: translateZ(calc(-1 * var(--cyl-half-depth))) rotateY(180deg);
+  }
 
-    .strip {
-        position: absolute;
-        top: 50%; left: 50%;
-        translate: -50% -50%;
-        background: var(--color-bronze);
-        height: var(--cyl-depth);
-        width: 13.5px; 
-        box-sizing: border-box;
-        border-left: 1px solid var(--color-bronze);
-        border-right: 1px solid var(--color-bronze);
-        backface-visibility: hidden; 
-    }
+  .strip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background: var(--color-bronze);
+    height: var(--cyl-depth);
+    width: 13.5px;
+    box-sizing: border-box;
+    border-left: 1px solid var(--color-bronze);
+    border-right: 1px solid var(--color-bronze);
+    backface-visibility: hidden;
+  }
 </style>
 
 <script is:inline define:vars={{ instanceId }}>
-    function initBouncyGrid() {
-        const grid = document.getElementById(`grid-${instanceId}`);
-        const dotsLayer = document.getElementById(`dots-layer-${instanceId}`);
-        const container = document.getElementById(`zone-of-dames-${instanceId}`);
-        
-        if (!grid || !dotsLayer || !container) return;
+  function initBouncyGrid() {
+    const grid = document.getElementById(`grid-${instanceId}`);
+    const dotsLayer = document.getElementById(`dots-layer-${instanceId}`);
+    const container = document.getElementById(`zone-of-dames-${instanceId}`);
 
-        // 4. PERFORMANCE FIX: Hardcode dimensions based on instance ID.
-        // This eliminates the need for the `resize` event listener entirely!
-        const isMobile = instanceId === 'mobile';
-        const cols = isMobile ? 4 : 5; 
-        const rows = isMobile ? 4 : 11; 
+    if (!grid || !dotsLayer || !container) return;
 
-        container.style.width = isMobile ? '310px' : '390px'; 
-        container.style.height = isMobile ? '310px' : '870px';
+    // 4. PERFORMANCE FIX: Hardcode dimensions based on instance ID.
+    // This eliminates the need for the `resize` event listener entirely!
+    const isMobile = instanceId === 'mobile';
+    const cols = isMobile ? 4 : 5;
+    const rows = isMobile ? 4 : 11;
 
-        grid.style.gridTemplateColumns = `repeat(${cols}, var(--cyl-width))`;
-        grid.style.gridTemplateRows = `repeat(${rows}, var(--cyl-height))`;
+    container.style.width = isMobile ? '310px' : '390px';
+    container.style.height = isMobile ? '310px' : '870px';
 
-        const gridFragment = document.createDocumentFragment();
-        const dotsFragment = document.createDocumentFragment();
+    grid.style.gridTemplateColumns = `repeat(${cols}, var(--cyl-width))`;
+    grid.style.gridTemplateRows = `repeat(${rows}, var(--cyl-height))`;
 
-        const cylinderCount = cols * rows; 
-        const stripCount = 18; 
+    const gridFragment = document.createDocumentFragment();
+    const dotsFragment = document.createDocumentFragment();
 
-        for (let i = 0; i < cylinderCount; i++) {
-            const li = document.createElement('li');
-            li.dataset.index = i;
-            
-            const wrapper = document.createElement('div');
-            wrapper.className = 'cylinder-wrapper';
-            wrapper.id = `cyl-${instanceId}-${i}`;
-            wrapper.innerHTML = '<div class="top"></div><div class="bottom"></div>';
-            
-            for (let j = 0; j < stripCount; j++) {
-                const strip = document.createElement('div');
-                strip.className = 'strip';
-                strip.style.transform = `rotateZ(${j * 20}deg) translateY(calc(-1 * var(--cyl-radius) + 0.5px)) rotateX(90deg)`;
-                wrapper.appendChild(strip);
-            }
-            
-            li.appendChild(wrapper);
-            gridFragment.appendChild(li);
-        }
+    const cylinderCount = cols * rows;
+    const stripCount = 18;
 
-        for (let r = 0; r <= rows; r++) {
-            for (let c = 0; c <= cols; c++) {
-                const dot = document.createElement('div');
-                dot.className = 'cyber-dot';
-                dot.style.left = `calc(${c * 80}px - 5px)`;
-                dot.style.top = `calc(${r * 80}px - 5px)`;
-                dotsFragment.appendChild(dot);
-            }
-        }
+    for (let i = 0; i < cylinderCount; i++) {
+      const li = document.createElement('li');
+      li.dataset.index = i;
 
-        grid.appendChild(gridFragment);
-        dotsLayer.appendChild(dotsFragment);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'cylinder-wrapper';
+      wrapper.id = `cyl-${instanceId}-${i}`;
+      wrapper.innerHTML = '<div class="top"></div><div class="bottom"></div>';
 
-        // Click Event Delegation
-        grid.addEventListener('click', (e) => {
-            const wrapper = e.target.closest('.cylinder-wrapper');
-            if (!wrapper) return;
+      for (let j = 0; j < stripCount; j++) {
+        const strip = document.createElement('div');
+        strip.className = 'strip';
+        strip.style.transform = `rotateZ(${j * 20}deg) translateY(calc(-1 * var(--cyl-radius) + 0.5px)) rotateX(90deg)`;
+        wrapper.appendChild(strip);
+      }
 
-            e.stopPropagation(); 
-            const center = parseInt(wrapper.parentElement.dataset.index, 10);
-            const neighbors = [center];
-
-            if (center % cols !== 0) neighbors.push(center - 1); 
-            if (center % cols !== cols - 1) neighbors.push(center + 1); 
-            if (center >= cols) neighbors.push(center - cols); 
-            if (center < (rows - 1) * cols) neighbors.push(center + cols); 
-
-            neighbors.forEach(index => {
-                const neighborEl = document.getElementById(`cyl-${instanceId}-${index}`);
-                if (neighborEl) neighborEl.classList.toggle('flipped');
-            });
-        });
-
-        // Bouncy Reset
-        document.body.addEventListener('click', () => {
-            const allDiscs = container.querySelectorAll('.cylinder-wrapper');
-            allDiscs.forEach((wrapper, i) => {
-                const col = i % cols;
-                const row = Math.floor(i / cols);
-                const staggerDelay = (col + row) * 50; 
-
-                setTimeout(() => {
-                    if (wrapper.classList.contains('flipped')) {
-                        wrapper.classList.remove('flipped');
-                        wrapper.style.transition = 'transform 1.2s cubic-bezier(0.6, -0.6, 0.3, 1.6)';
-                        wrapper.style.transform = 'rotateX(360deg) rotateY(360deg) rotateZ(360deg)';
-                        
-                        setTimeout(() => {
-                            wrapper.style.transition = 'none'; 
-                            wrapper.style.transform = ''; 
-                            void wrapper.offsetWidth; 
-                            wrapper.style.transition = ''; 
-                        }, 1200);
-                    }
-                }, staggerDelay);
-            });
-        });
+      li.appendChild(wrapper);
+      gridFragment.appendChild(li);
     }
 
-    initBouncyGrid();
+    for (let r = 0; r <= rows; r++) {
+      for (let c = 0; c <= cols; c++) {
+        const dot = document.createElement('div');
+        dot.className = 'cyber-dot';
+        dot.style.left = `calc(${c * 80}px - 5px)`;
+        dot.style.top = `calc(${r * 80}px - 5px)`;
+        dotsFragment.appendChild(dot);
+      }
+    }
+
+    grid.appendChild(gridFragment);
+    dotsLayer.appendChild(dotsFragment);
+
+    // Click Event Delegation
+    grid.addEventListener('click', (e) => {
+      const wrapper = e.target.closest('.cylinder-wrapper');
+      if (!wrapper) return;
+
+      e.stopPropagation();
+      const center = parseInt(wrapper.parentElement.dataset.index, 10);
+      const neighbors = [center];
+
+      if (center % cols !== 0) neighbors.push(center - 1);
+      if (center % cols !== cols - 1) neighbors.push(center + 1);
+      if (center >= cols) neighbors.push(center - cols);
+      if (center < (rows - 1) * cols) neighbors.push(center + cols);
+
+      neighbors.forEach((index) => {
+        const neighborEl = document.getElementById(`cyl-${instanceId}-${index}`);
+        if (neighborEl) neighborEl.classList.toggle('flipped');
+      });
+    });
+
+    // Bouncy Reset
+    document.body.addEventListener('click', () => {
+      const allDiscs = container.querySelectorAll('.cylinder-wrapper');
+      allDiscs.forEach((wrapper, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const staggerDelay = (col + row) * 50;
+
+        setTimeout(() => {
+          if (wrapper.classList.contains('flipped')) {
+            wrapper.classList.remove('flipped');
+            wrapper.style.transition = 'transform 1.2s cubic-bezier(0.6, -0.6, 0.3, 1.6)';
+            wrapper.style.transform = 'rotateX(360deg) rotateY(360deg) rotateZ(360deg)';
+
+            setTimeout(() => {
+              wrapper.style.transition = 'none';
+              wrapper.style.transform = '';
+              void wrapper.offsetWidth;
+              wrapper.style.transition = '';
+            }, 1200);
+          }
+        }, staggerDelay);
+      });
+    });
+  }
+
+  initBouncyGrid();
 </script>

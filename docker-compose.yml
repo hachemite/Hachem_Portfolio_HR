@@ -7,10 +7,10 @@ services:
       dockerfile: Dockerfile
     container_name: hachemite_portfolio
     ports:
-      - "8080:80" 
+      - '8080:80'
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/"]
+      test: ['CMD', 'curl', '-f', 'http://localhost/']
       interval: 30s
       timeout: 10s
       retries: 3

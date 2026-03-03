@@ -1,8 +1,8 @@
-name: "LUCID: AI-Powered DDoS Monitoring Dashboard"
-role: "Live Demo"
+name: 'LUCID: AI-Powered DDoS Monitoring Dashboard'
+role: 'Live Demo'
 year: 2026
-stack: ["PYTHON", "FASTAPI", "TENSORFLOW", "DOCKER", "NGINX"]
+stack: ['PYTHON', 'FASTAPI', 'TENSORFLOW', 'DOCKER', 'NGINX']
 details:
-  - "Built a real-time CNN detection system (IEEE TNSM-based) to classify malicious flows with a 1.7s response time and automated mitigation."
+  - 'Built a real-time CNN detection system (IEEE TNSM-based) to classify malicious flows with a 1.7s response time and automated mitigation.'
 visible: true
-lang: "en"
+lang: 'en'

@@ -7,13 +7,13 @@ const experience = defineCollection({
   schema: z.object({
     role: z.string(),
     company: z.string(),
-    location: z.string(), 
+    location: z.string(),
     startDate: z.date(),
     endDate: z.date().optional(), // Missing = "Present"
     current: z.boolean().default(false),
     stack: z.array(z.string()),
     // CRITICAL: This separates "Work" from "Clubs" in your CV
-    type: z.enum(['Work', 'Internship', 'Leadership', 'Volunteering']), 
+    type: z.enum(['Work', 'Internship', 'Leadership', 'Volunteering']),
     visible: z.boolean().default(true), // Toggle to hide without deleting
 
     lang: z.enum(['en', 'fr']).default('en'),
@@ -22,33 +22,34 @@ const experience = defineCollection({
 
 // 2. PROJECTS (The Grid + Case Studies)
 const projects = defineCollection({
-  type: 'content', 
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    year: z.number(),
-    description: z.string().max(160),
-    stack: z.array(z.string()),
-    repoUrl: z.string().url().optional(),
-    demoUrl: z.string().url().optional(),
-    
-    // NEW: The Cover Image
-    // We expect a path like "../../src/assets/images/projects/cybertech.png"
-    image: image().optional(), 
-    
-    featured: z.boolean().default(false),
-    visible: z.boolean().default(true),
-  }),
+  type: 'content',
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      year: z.number(),
+      description: z.string().max(160),
+      stack: z.array(z.string()),
+      repoUrl: z.string().url().optional(),
+      demoUrl: z.string().url().optional(),
+
+      // NEW: The Cover Image
+      // We expect a path like "../../src/assets/images/projects/cybertech.png"
+      image: image().optional(),
+
+      featured: z.boolean().default(false),
+      visible: z.boolean().default(true),
+    }),
 });
 
 // 3. EDUCATION (Degrees)
 const education = defineCollection({
-  type: 'data', 
+  type: 'data',
   schema: z.object({
     degree: z.string(),
     institution: z.string(),
     yearStart: z.number(),
     yearEnd: z.number().optional(),
-    details: z.string(), 
+    details: z.string(),
     visible: z.boolean().default(true),
     lang: z.enum(['en', 'fr']).default('en'), // <-- ADD THIS
   }),
@@ -56,12 +57,12 @@ const education = defineCollection({
 
 // 4. CERTIFICATES & HONORS
 const certificates = defineCollection({
-  type: 'data', 
+  type: 'data',
   schema: z.object({
     title: z.string(),
-    issuer: z.string(), 
-    date: z.string(),   
-    type: z.enum(['Certificate', 'Award', 'Speaking']), 
+    issuer: z.string(),
+    date: z.string(),
+    type: z.enum(['Certificate', 'Award', 'Speaking']),
     visible: z.boolean().default(true),
     lang: z.enum(['en', 'fr']).default('en'), // <-- ADD THIS
   }),
@@ -69,11 +70,11 @@ const certificates = defineCollection({
 
 // 5. SKILLS (The Summary List)
 const skills = defineCollection({
-  type: 'data', 
+  type: 'data',
   schema: z.object({
-    category: z.string(), 
+    category: z.string(),
     items: z.array(z.string()),
-    priority: z.number(), 
+    priority: z.number(),
     lang: z.enum(['en', 'fr']).default('en'), // <-- ADD THIS
   }),
 });
@@ -100,7 +101,7 @@ const cvProjects = defineCollection({
     year: z.number(),
     stack: z.array(z.string()),
     details: z.array(z.string()), // Array of bullet points
-    // THE SAFETY NET: 
+    // THE SAFETY NET:
     // This looks for a markdown file in the 'projects' folder.
     // If you type "cybertech" here, but "cybertech.md" doesn't exist, Astro throws a build error!
     projectLink: reference('projects').optional(),

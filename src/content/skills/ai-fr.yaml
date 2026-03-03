@@ -1,4 +1,4 @@
-category: "AI & Data"
-items: ["TensorFlow", "PyTorch", "Scikit-Learn", "RAG Pipelines"]
+category: 'AI & Data'
+items: ['TensorFlow', 'PyTorch', 'Scikit-Learn', 'RAG Pipelines']
 priority: 2
-lang: "fr"
+lang: 'fr'

@@ -13,87 +13,105 @@ const frUrl = basePath === '/' ? '/fr' : `/fr${basePath}`;
 
 // 2. Translated Nav Links
 const navLinks = [
-  { label: "~/", href: isFr ? "/fr" : "/" },
-  { label: isFr ? "PROJETS" : "PROJ", href: "/projects" }, // Always goes to English
-  { label: "WIKI", href: "/wiki" },                        // Always goes to English
-  { label: "CV", href: isFr ? "/fr/cv" : "/cv" },
+  { label: '~/', href: isFr ? '/fr' : '/' },
+  { label: isFr ? 'PROJETS' : 'PROJ', href: '/projects' }, // Always goes to English
+  { label: 'WIKI', href: '/wiki' }, // Always goes to English
+  { label: 'CV', href: isFr ? '/fr/cv' : '/cv' },
 ];
 
 // HR-Friendly Outlined SVGs (Sized at 16px to fit the top nav perfectly)
 const socialLinks = [
-  { 
-    label: "GitHub", 
-    href: "https://github.com/hachemite",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`
-  }, 
-  { 
-    label: "LinkedIn", 
-    href: "https://linkedin.com/in/hachemite",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>`
+  {
+    label: 'GitHub',
+    href: 'https://github.com/hachemite',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`,
   },
-  { 
-    label: "Email", 
-    href: "mailto:contact@hachemite.com",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>`
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/hachemite',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>`,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:contact@hachemite.com',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>`,
   },
 ];
 ---
 
-<nav class="absolute top-0 left-0 w-full p-4 md:p-8 z-50 pointer-events-none flex justify-between items-start">
-    
-    <div class="hidden md:flex pointer-events-auto items-center gap-4 text-xs font-mono text-ink/60">
-        
-<div class="flex gap-4">
-            {socialLinks.map(link => (
-                <a href={link.href} 
-                   target="_blank" 
-                   title={link.label}
-                   aria-label={link.label}
-                   class="hover:text-bronze hover:-translate-y-[2px] transition-transform flex items-center justify-center">
-                    <span class="sr-only">{link.label}</span>
-                    <Fragment set:html={link.icon} />
-                </a>
-            ))}
-        </div>
-
-        <span class="text-bronze/30">|</span>
-
-        <div class="flex gap-2 font-bold text-ink">
-            {navLinks.map(link => {
-                // Strict check for the home routes to prevent "/" highlighting everything
-                const isActive = link.href === '/' || link.href === '/fr'
-                    ? currentPath === link.href 
-                    : currentPath.startsWith(link.href);
-
-                return (
-                    <a href={link.href} 
-                       class:list={[
-                           "px-2 py-1 transition-all border", 
-                           isActive 
-                               ? "border-ink bg-sand shadow-hard-sm text-bronze translate-y-[-1px]" 
-                               : "border-transparent hover:border-bronze hover:text-bronze" 
-                       ]}>
-                        {link.label}
-                    </a>
-                )
-            })}
-        </div>
+<nav
+  class="pointer-events-none absolute top-0 left-0 z-50 flex w-full items-start justify-between p-4 md:p-8"
+>
+  <div class="text-ink/60 pointer-events-auto hidden items-center gap-4 font-mono text-xs md:flex">
+    <div class="flex gap-4">
+      {
+        socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            title={link.label}
+            aria-label={link.label}
+            class="hover:text-bronze flex items-center justify-center transition-transform hover:-translate-y-[2px]"
+          >
+            <span class="sr-only">{link.label}</span>
+            <Fragment set:html={link.icon} />
+          </a>
+        ))
+      }
     </div>
 
-    <div class="pointer-events-auto ml-auto flex items-center gap-3 font-mono text-xs font-bold bg-sand/80 md:bg-transparent px-3 py-1.5 md:p-0 border border-ink/10 md:border-transparent backdrop-blur shadow-hard-sm md:shadow-none">
-        <a href={enUrl} 
-           class:list={[
-               "transition-colors", 
-               !isFr ? "text-bronze underline decoration-dotted underline-offset-4" : "text-ink/40 hover:text-ink"
-           ]}>EN</a>
-        
-        <span class="text-ink/20">/</span>
-        
-        <a href={frUrl} 
-           class:list={[
-               "transition-colors", 
-               isFr ? "text-bronze underline decoration-dotted underline-offset-4" : "text-ink/40 hover:text-ink"
-           ]}>FR</a>
-    </div>
+    <span class="text-bronze/30">|</span>
 
+    <div class="text-ink flex gap-2 font-bold">
+      {
+        navLinks.map((link) => {
+          // Strict check for the home routes to prevent "/" highlighting everything
+          const isActive =
+            link.href === '/' || link.href === '/fr'
+              ? currentPath === link.href
+              : currentPath.startsWith(link.href);
+
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                'border px-2 py-1 transition-all',
+                isActive
+                  ? 'border-ink bg-sand shadow-hard-sm text-bronze translate-y-[-1px]'
+                  : 'hover:border-bronze hover:text-bronze border-transparent',
+              ]}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div
+    class="bg-sand/80 border-ink/10 shadow-hard-sm pointer-events-auto ml-auto flex items-center gap-3 border px-3 py-1.5 font-mono text-xs font-bold backdrop-blur md:border-transparent md:bg-transparent md:p-0 md:shadow-none"
+  >
+    <a
+      href={enUrl}
+      class:list={[
+        'transition-colors',
+        !isFr
+          ? 'text-bronze underline decoration-dotted underline-offset-4'
+          : 'text-ink/40 hover:text-ink',
+      ]}>EN</a
+    >
+
+    <span class="text-ink/20">/</span>
+
+    <a
+      href={frUrl}
+      class:list={[
+        'transition-colors',
+        isFr
+          ? 'text-bronze underline decoration-dotted underline-offset-4'
+          : 'text-ink/40 hover:text-ink',
+      ]}>FR</a
+    >
+  </div>
 </nav>
