@@ -1,44 +1,38 @@
-name: Production Pipeline
-
+name: 'Deployment'
 on:
   push:
-    branches: [ "master", "main" ] # Triggers when you push to master/main
-  schedule:
-    - cron: '0 0 * * *' # Triggers daily at midnight UTC to fetch fresh Wiki logs
-  workflow_dispatch: # Allows you to manually click "Run" in GitHub
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test_and_deploy:
-    name: Build, Test & Deploy to Edge
+  deploy:
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 5
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name:  Setup Node.js
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 20
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Install and Build
+        # Use "|" for multi-line commands or "&&" to ensure build only runs if install succeeds
+        run: |
+          npm ci
+          npm run build
 
-      - name: Security & Code Quality QA
-        run: npm run qa # Runs your Prettier, ESLint, and Astro Check
-
-      - name: Build SSG Files
-        run: npm run build
-        env:
-          # Optional: Helps prevent GitHub API rate limits during build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-
-      - name: ☁️ Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Deploy to Cloudflare Pages
+        uses: andykenward/github-actions-cloudflare-pages@v3.0.0
+        id: pages
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'red-base-9d40' # Must match your Cloudflare Pages project name
-          directory: 'dist'
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare-account-id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          cloudflare-project-name: ${{ vars.CLOUDFLARE_PROJECT_NAME }}
+          directory: dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}
