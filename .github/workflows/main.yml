@@ -39,6 +39,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'hachemite-portfolio' # Must match your Cloudflare Pages project name
+          projectName: 'red-base-9d40' # Must match your Cloudflare Pages project name
           directory: 'dist'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
