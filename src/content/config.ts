@@ -23,7 +23,7 @@ const experience = defineCollection({
 // 2. PROJECTS (The Grid + Case Studies)
 const projects = defineCollection({
   type: 'content', 
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     year: z.number(),
     description: z.string().max(160),
@@ -32,8 +32,8 @@ const projects = defineCollection({
     demoUrl: z.string().url().optional(),
     
     // NEW: The Cover Image
-    // We expect a path like "/images/projects/cybertech.png"
-    image: z.string().optional(), 
+    // We expect a path like "../../src/assets/images/projects/cybertech.png"
+    image: image().optional(), 
     
     featured: z.boolean().default(false),
     visible: z.boolean().default(true),

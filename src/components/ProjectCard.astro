@@ -1,22 +1,28 @@
 ---
 import TechBadge from './TechBadge.astro';
+// 1. Import the Astro Image component
+import { Image } from 'astro:assets'; 
 
 interface Props {
-  project: any; // Type this properly if you want strictness
+    project: any; 
 }
 
 const { project } = Astro.props;
 const { title, description, stack, image } = project.data;
-const href = `/projects/${project.slug}`; // Link to the case study
+const href = `/projects/${project.slug}`; 
 ---
 
 <a href={href} class="group flex flex-col h-full border border-ink bg-sand hover:border-bronze transition-colors duration-300">
     
     <div class="w-full aspect-video border-b border-ink/10 overflow-hidden bg-white/50 relative">
         {image ? (
-            <img 
+            // 2. Replace standard <img> with Astro <Image />
+            <Image 
                 src={image} 
                 alt={title}
+                width={800}
+                height={450}
+                format="webp"
                 class="w-full h-full object-cover image-rendering-pixelated grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
             />
         ) : (
@@ -33,7 +39,6 @@ const href = `/projects/${project.slug}`; // Link to the case study
             <h3 class="font-bold text-lg text-ink group-hover:text-bronze transition-colors">
                 {title}
             </h3>
-
         </div>
 
         <p class="text-sm text-ink/80 mb-6 flex-grow leading-relaxed">

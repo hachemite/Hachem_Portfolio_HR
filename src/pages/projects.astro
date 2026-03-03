@@ -2,11 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content'; // 1. Strict TypeScript Import
 
-// 1. Fetch All Visible Projects
+// 2. Fetch All Visible Projects
 const allProjects = await getCollection('projects', ({ data }) => data.visible);
 
-// 2. Sort by Year (Descending), then Title
+// 3. Sort by Year (Descending), then Title
 const sortedProjects = allProjects.sort((a, b) => {
     if (b.data.year !== a.data.year) {
         return b.data.year - a.data.year;
@@ -14,19 +15,21 @@ const sortedProjects = allProjects.sort((a, b) => {
     return a.data.title.localeCompare(b.data.title);
 });
 
-// 3. Group by Year
-// Result: { 2026: [ProjectA], 2025: [ProjectB, ProjectC] }
+// 4. Group by Year (Strictly typed with CollectionEntry)
 const projectsByYear = sortedProjects.reduce((acc, project) => {
     const year = project.data.year;
     if (!acc[year]) acc[year] = [];
     acc[year].push(project);
     return acc;
-}, {} as Record<number, typeof allProjects>);
+}, {} as Record<number, CollectionEntry<'projects'>[]>);
 
 const years = Object.keys(projectsByYear).map(Number).sort((a, b) => b - a);
 ---
 
-<BaseLayout title="Projects | Hachemite">
+<BaseLayout 
+    title="Projects | Hachem Squalli"
+    description="Selected case studies in infrastructure, automation, and autonomous agents by Hachem Squalli."
+>
     
     <div class="mb-16">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">PROJECTS</h1>
