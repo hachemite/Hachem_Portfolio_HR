@@ -138,21 +138,13 @@ This isn't a portfolio anymore. It's a Production Environment.
 Would you like the exact .github/workflows/deploy.yml code to automate your deployment to Cloudflare Pages?
 
 
-|
-|
-|
-|
-Pour Anass ARRHIOUI (Theodo - Focus Full-Stack & Front-end)
+
+;Step 3: Add the Observability Endpoint (/api/health.ts)
+Since you are building a static site (SSG), this endpoint will snapshot the exact time your Cloudflare build ran, acting as a "Last Build / Build Status" health check.
 
 
-Bonjour Anass, merci encore pour l'ajout. Étudiant en 4ème année à l'ENSA Fès, je suis un passionné de Full-Stack avec un profil créatif. J'aime concevoir des outils interactifs, comme DocuGen Pro (Spring/Angular avec LLama 3), et j'ai une bonne expérience dans le debug d'interfaces complexes, notamment sur le support RTL. Par curiosité, est-ce que Theodo accueille des stagiaires sur ce type de projets de développement ?"
+;
 
----
-Pour Issam Zouf (Fondation M6 - Focus DevOps & Infra)
+adding prettier and linter
 
-Bonjour Issam, ravi de connecter. Élève ingénieur à l'ENSA Fès, je me spécialise en DevOps avec un focus sur le déploiement sécurisé. J'ai récemment administré l'infrastructure VPS du CyberTech Day via Docker et Nginx pour 300+ participants. J'aimerais savoir si votre équipe comporte beaucoup de profils juniors et comment se passe la collaboration au quotidien ?"
-
----
-Pour Mehdi Benjelloun (INNOVX - Focus Architecture & Cloud)
-
-Bonjour Mehdi, merci pour l'acceptation. Suite à mon passage chez IR4LAB où j'ai pu assister l'équipe sur des workflows CI/CD, j'ai réalisé que je souhaitais approfondir l'Architecture et le Cloud. En tant qu'étudiant à l'ENSA, j'implémente déjà des concepts de System Design via Docker et AWS sur mes projets personnels. INNOVX propose-t-elle des stages PFA cet été pour des profils curieux de ces sujets ?"
+; adding docker and nginx for futer deployment in cloud or VPS
