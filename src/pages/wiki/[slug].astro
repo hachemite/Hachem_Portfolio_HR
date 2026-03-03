@@ -7,13 +7,24 @@ interface Props {
 }
 
 export async function getStaticPaths() {
-    // 1. Fetch all issues at build time
-    const GITHUB_REPO = 'hachemite/wiki-logs'; // UPDATE THIS
-    const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open`);
-    
-    if (!response.ok) return [];
+    const GITHUB_REPO = 'hachemite/wiki-logs'; 
+    let issues = [];
 
-    const issues = await response.json();
+    // 1. Network Resilience: Try/Catch with Timeout
+    try {
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open`, {
+            signal: AbortSignal.timeout(5000)
+        });
+        if (response.ok) {
+            issues = await response.json();
+        } else {
+            console.warn(`GitHub API returned status: ${response.status}`);
+        }
+    } catch (error: any) {
+        console.error("Failed to connect to GitHub API in [slug].astro.", error.message);
+        return []; // Return empty paths so the build doesn't crash
+    }
+
     const notes = issues.filter((issue: any) => !issue.pull_request);
 
     // 2. Map issue numbers to the [slug] parameter
@@ -28,7 +39,9 @@ const { note } = Astro.props;
 // 3. Convert GitHub Markdown to HTML
 const contentHtml = marked.parse(note.body || '*No content provided.*');
 const publishDate = new Date(note.created_at);
-const rawText = note.body ? note.body.replace(/[#*`_>\[\]]/g, '').substring(0, 150) + '...' : 'Technical Wiki Note';
+
+// 4. SEO Resilience: Strip markdown AND line breaks (\n)
+const rawText = note.body ? note.body.replace(/[#*`_>\[\]]/g, '').replace(/\n/g, ' ').substring(0, 150) + '...' : 'Technical Wiki Note';
 ---
 
 <BaseLayout 
@@ -47,7 +60,7 @@ const rawText = note.body ? note.body.replace(/[#*`_>\[\]]/g, '').substring(0, 1
         <header class="mb-12 border-b-2 border-ink pb-6">
             <div class="font-mono text-xs text-ink/40 mb-2 flex gap-4">
                 <span>FILE_ID: GH_ISSUE_{note.number}</span>
-                <span>AUTHOR: {note.user.login}</span> 
+                <span>AUTHOR: {note.user?.login || 'hachemite'}</span> 
             </div>
             
             <h1 class="text-3xl md:text-4xl font-bold font-sans text-ink mb-6 leading-tight">
@@ -59,7 +72,8 @@ const rawText = note.body ? note.body.replace(/[#*`_>\[\]]/g, '').substring(0, 1
                     {publishDate.toISOString().split('T')[0]}
                 </span>
                 <div class="flex gap-2 text-ink/60">
-                    {note.labels.map((t: any) => <span>#{t.name}</span>)}
+                    {/* 5. Edge Case Resilience: Optional Chaining on labels */}
+                    {note.labels?.map((t: any) => <span>#{t.name}</span>)}
                 </div>
             </div>
         </header>

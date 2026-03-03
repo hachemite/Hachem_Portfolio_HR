@@ -3,11 +3,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Fetch from GitHub
 const GITHUB_REPO = 'hachemite/wiki-logs';
-const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open`);
-const issues = response.ok ? await response.json() : [];
+
+let issues = [];
+try {
+    // We wrap the fetch in a try/catch so if your internet drops, the site doesn't crash
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open`, {
+        signal: AbortSignal.timeout(5000) 
+    });
+    if (response.ok) {
+        issues = await response.json();
+    } else {
+        console.warn(`GitHub API returned status: ${response.status}`);
+    }
+} catch (error: any) {
+    console.error("Failed to connect to GitHub API. Using empty fallback array.", error.message);
+}
+
 const allNotes = issues.filter((issue: any) => !issue.pull_request);
 
 function getTerminalDate(dateString: string) {
+    if (!dateString) return '';
     const d = new Date(dateString);
     const month = d.toLocaleString('en-US', { month: 'short' });
     const day = d.getDate().toString().padStart(2, ' ');
@@ -20,7 +35,7 @@ function getSize(txt: string) {
 }
 ---
 
-<BaseLayout title="Wiki_Logs | Hachemite">
+<BaseLayout title="Wiki_Logs | Hachem Squalli">
 
     <div class="mb-8">
         <h1 class="text-4xl md:text-5xl font-bold mb-2 font-sans">DIGITAL_GARDEN</h1>
@@ -51,10 +66,10 @@ function getSize(txt: string) {
                 {allNotes.map((note: any) => (
                     <a href={`/wiki/${note.number}`} class="group flex flex-col md:flex-row md:items-center hover:bg-white/10 transition-colors decoration-none py-3 md:py-0 border-b border-white/5 md:border-transparent">
                         
-<div class="hidden md:flex items-center gap-3 pr-4 shrink-0 min-w-max">
+                        <div class="hidden md:flex items-center gap-3 pr-4 shrink-0 min-w-max">
                             <span class="text-ink/50">-rw-r--r--</span>  
                             <span class="text-ink/50 w-4 text-right shrink-0">{note.number}</span>
-                            <span class="text-[#ce9178]">{note.user.login}</span>  
+                            <span class="text-[#ce9178]">{note.user?.login || 'hachemite'}</span>  
                             <span class="text-[#ce9178]">staff</span>  
                             <span>{getSize(note.body)}</span> 
                             <span class="text-[#6a9955]">{getTerminalDate(note.created_at)}</span> 
@@ -69,6 +84,7 @@ function getSize(txt: string) {
                         </div>
 
                         <span class="ml-4 text-ink/40 hidden md:inline">
+                            {/* Optional Chaining for resilience */}
                             {note.labels?.map((l: any) => `[${l.name}]`).join(' ')}
                         </span>
                         
