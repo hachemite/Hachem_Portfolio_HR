@@ -1,38 +1,47 @@
-name: 'Deployment'
+name: '🚀 Production Deployment'
+
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
     branches: [main]
+  workflow_dispatch: 
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
       deployments: write
       pull-requests: write
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Set up Node.js
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
-      - name: Install and Build
-        # Use "|" for multi-line commands or "&&" to ensure build only runs if install succeeds
+      - name: 📦 Install & QA
+        # We combine these so if QA fails, the build never starts (SecOps best practice)
         run: |
           npm ci
-          npm run build
+          npm run qa 
 
-      - name: Deploy to Cloudflare Pages
-        uses: andykenward/github-actions-cloudflare-pages@v3.0.0
-        id: pages
+      - name: 🏗️ Build
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ☁️ Deploy to Cloudflare
+        uses: cloudflare/pages-action@v1
         with:
-          cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          cloudflare-account-id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          cloudflare-project-name: ${{ vars.CLOUDFLARE_PROJECT_NAME }}
-          directory: dist
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{CLOUDFLARE_PROJECT_NAME}}
+          directory: 'dist'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
