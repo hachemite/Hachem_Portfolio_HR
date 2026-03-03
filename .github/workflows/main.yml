@@ -27,7 +27,6 @@ jobs:
           cache: 'npm'
 
       - name: 📦 Install & QA
-        # We combine these so if QA fails, the build never starts (SecOps best practice)
         run: |
           npm ci
           npm run qa 
@@ -42,6 +41,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{CLOUDFLARE_PROJECT_NAME}}
+          # FIX: Added "secrets." prefix below
+          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
           directory: 'dist'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
