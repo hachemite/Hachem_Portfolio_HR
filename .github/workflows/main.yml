@@ -1,0 +1,44 @@
+name: Production Pipeline
+
+on:
+  push:
+    branches: [ "master", "main" ] # Triggers when you push to master/main
+  schedule:
+    - cron: '0 0 * * *' # Triggers daily at midnight UTC to fetch fresh Wiki logs
+  workflow_dispatch: # Allows you to manually click "Run" in GitHub
+
+jobs:
+  test_and_deploy:
+    name: Build, Test & Deploy to Edge
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name:  Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Security & Code Quality QA
+        run: npm run qa # Runs your Prettier, ESLint, and Astro Check
+
+      - name: Build SSG Files
+        run: npm run build
+        env:
+          # Optional: Helps prevent GitHub API rate limits during build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
+      - name: ☁️ Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: 'hachemite-portfolio' # Must match your Cloudflare Pages project name
+          directory: 'dist'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
