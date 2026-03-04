@@ -36,12 +36,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ☁️ Deploy to Cloudflare
-        uses: cloudflare/pages-action@v1
+
+      - name: ☁️ Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # FIX: Added "secrets." prefix below
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: 'dist'
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: deploy
