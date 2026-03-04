@@ -22,8 +22,7 @@ export const ui = {
     // ── Home ─────────────────────────────────────────────────────────────────
     'home.signal': 'SIGNAL',
     'home.signal.text':
-      'I engineer <a href="/projects" class="text-bronze hover:underline"><strong>resilient systems</strong></a> and <strong>AI pipelines</strong>. Currently optimizing high-traffic infrastructure at <span class="font-bold text-ink">SecOps</span> and building autonomous agents.',
-
+      'I engineer resilient systems and AI pipelines. Currently optimizing high-traffic infrastructure at SecOps and building autonomous agents.',
     'home.focus': '[FOCUS]',
     'home.focus.text': 'DevOps / Reinforcement Learning',
     'home.focus.tags': ['Reinforcement Learning', 'DevOps', 'AWS Cloud', 'System Design'],
@@ -76,8 +75,7 @@ export const ui = {
     // ── Home ─────────────────────────────────────────────────────────────────
     'home.signal': 'SIGNAL',
     'home.signal.text':
-      'Je conçois des <a href="/fr/projects" class="text-bronze hover:underline"><strong>systèmes résilients</strong></a> et des <strong>pipelines IA</strong>. Actuellement, j\'optimise l\'infrastructure à fort trafic chez <span class="font-bold text-ink">SecOps</span> et je développe des agents autonomes.',
-
+    'Je conçois des systèmes résilients et des pipelines IA. Actuellement, j\'optimise l\'infrastructure à fort trafic chez SecOps et je développe des agents autonomes.',
     'home.focus': '[FOCUS]',
     'home.focus.text': 'DevOps / Apprentissage par Renforcement',
     'home.focus.tags': [
