@@ -1,0 +1,117 @@
+name: '🔍 Cloudflare Diagnostics'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: '1️⃣ Test API Token Format'
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "❌ CLOUDFLARE_API_TOKEN is NOT set"
+            exit 1
+          else
+            TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
+            if [[ ${#TOKEN} -lt 30 ]]; then
+              echo "⚠️ WARNING: Token seems too short (${#TOKEN} chars). Cloudflare tokens should be ~40 chars"
+            else
+              echo "✅ CLOUDFLARE_API_TOKEN is set (${#TOKEN} chars)"
+            fi
+          fi
+
+      - name: '2️⃣ Test Account ID Format'
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "❌ CLOUDFLARE_ACCOUNT_ID is NOT set"
+            exit 1
+          else
+            ACCOUNT_ID="${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+            if [[ ${#ACCOUNT_ID} -lt 30 ]]; then
+              echo "⚠️ WARNING: Account ID seems too short (${#ACCOUNT_ID} chars). Should be ~32 chars"
+            else
+              echo "✅ CLOUDFLARE_ACCOUNT_ID is set (${#ACCOUNT_ID} chars)"
+            fi
+          fi
+
+      - name: '3️⃣ Test Project Name'
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_PROJECT_NAME }}" ]; then
+            echo "❌ CLOUDFLARE_PROJECT_NAME is NOT set"
+            exit 1
+          else
+            echo "✅ CLOUDFLARE_PROJECT_NAME is set: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}"
+          fi
+
+      - name: '4️⃣ Test API Token with Cloudflare API'
+        run: |
+          echo "Testing API token with Cloudflare..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.cloudflare.com/client/v4/user" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response: $BODY"
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ API Token is VALID"
+          else
+            echo "❌ API Token is INVALID or has permission issues"
+            exit 1
+          fi
+
+      - name: '5️⃣ Test Account Access'
+        run: |
+          echo "Testing account access..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response: $BODY"
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Account ID is VALID and accessible"
+          else
+            echo "❌ Account ID is INVALID or not accessible with this token"
+            exit 1
+          fi
+
+      - name: '6️⃣ Test Project Exists'
+        run: |
+          echo "Testing if project exists..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/${{ secrets.CLOUDFLARE_PROJECT_NAME }}" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response: $BODY"
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Project EXISTS and is accessible"
+          else
+            echo "❌ Project NOT FOUND or not accessible"
+            exit 1
+          fi
+
+      - name: '📋 Summary'
+        if: always()
+        run: |
+          echo ""
+          echo "=== DIAGNOSTIC SUMMARY ==="
+          echo "If all tests passed (✅), the issue might be:"
+          echo "1. Temporary Cloudflare API outage"
+          echo "2. Network connectivity issue"
+          echo "3. Issue with the cloudflare/pages-action action itself"
+          echo ""
+          echo "If any test failed (❌), fix the specific issue before retrying deployment"
