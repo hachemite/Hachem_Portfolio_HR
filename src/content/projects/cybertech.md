@@ -3,7 +3,7 @@ title: 'CyberTech Infra'
 year: 2028
 description: 'Zero-downtime Docker Swarm architecture for a CTF competition serving 300+ concurrent users.'
 stack: ['Docker', 'Ansible', 'Nginx']
-image: '../../assets/images/cybertechday.png'
+image: '../../assets/images/projects_images/cybertechday.png'
 featured: true
 visible: true
 ---
@@ -12,7 +12,7 @@ visible: true
 
 We needed to host a CTF where participants try to hack the server...
 
-![CyberTech Infrastructure Architecture](../../assets/images/cybertechday.png)
+![CyberTech Infrastructure Architecture](../../assets/images/projects_images/cybertechday.png)
 
 ## The Solution
 
