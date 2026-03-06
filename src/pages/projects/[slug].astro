@@ -113,4 +113,43 @@ const { title, description, year, stack, repoUrl, demoUrl, image } = project.dat
       SCROLL_TOP <span>↑</span>
     </a>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Find all images inside your Markdown content
+      const images = document.querySelectorAll('.prose-industrial img');
+
+      images.forEach((img) => {
+        // If the browser fails to load the image, it might be a video
+        img.addEventListener('error', async (e) => {
+          const target = e.target as HTMLImageElement;
+          const src = target.src;
+
+          try {
+            // Fetch only the headers to check the file type
+            const response = await fetch(src, { method: 'HEAD' });
+            const contentType = response.headers.get('content-type');
+
+            // If GitHub tells us it's a video, transform the element!
+            if (contentType && contentType.startsWith('video/')) {
+              const video = document.createElement('video');
+              video.src = src;
+              video.autoplay = true;
+              video.loop = true;
+              video.muted = true;
+              video.playsInline = true;
+              video.controls = true;
+              // Add your 'Sand & Dust' styling to the video
+              video.className = 'w-full border-2 border-ink shadow-hard mb-6';
+
+              // Swap the broken image with the working video
+              target.parentNode?.replaceChild(video, target);
+            }
+          } catch (error) {
+            console.warn('Could not check media type for:', src);
+          }
+        });
+      });
+    });
+  </script>
 </BaseLayout>

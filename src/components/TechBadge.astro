@@ -14,26 +14,62 @@ const cleanName = name.split('(')[0].trim().toLowerCase();
 
 // --- 2. THE DICTIONARY (Mappings) ---
 // Map your human-readable terms to valid Simple-Icons slugs.
+// --- 2. THE DICTIONARY (Mappings) ---
+// Map your human-readable terms to valid Simple-Icons slugs.
 const iconMap: Record<string, string> = {
+  // Existing mappings...
   aws: 'amazonwebservices',
-  'amazon web services': 'amazonwebservices',
   'c++': 'cplusplus',
-  cpp: 'cplusplus',
-  'c#': 'csharp',
-  cs: 'csharp',
-  '.net': 'dotnet',
-  dotnet: 'dotnet',
   'node.js': 'nodedotjs',
-  nodejs: 'nodedotjs',
-  vue: 'vuedotjs',
   'vue.js': 'vuedotjs',
-  golang: 'go',
-  k8s: 'kubernetes',
-  'scikit-learn': 'scikitlearn',
-  'rag pipelines': 'openai', // Fallback for generic AI terms
-  'artificial intelligence': 'openai',
-};
 
+  // Frameworks & Tools
+  'angular 17': 'angular',
+  'spring boot': 'springboot',
+  'docker compose': 'docker',
+
+  // APIs & SDKs
+  'groq api': 'openai', // Fallback for AI APIs
+  'telegram api': 'telegram',
+  'google drive api': 'googledrive',
+  'android sdk': 'android',
+  'html5 canvas': 'html5',
+
+  // Specific Libraries & Tech
+  jwt: 'jsonwebtokens',
+  'chart.js': 'chartdotjs',
+  'rapids cuml': 'nvidia', // Mapped to NVIDIA
+  ctfd: 'kalilinux', // Generic cybersecurity fallback
+  'tinygps++': 'googlemaps', // Generic GPS fallback
+  jdbc: 'java', // Generic database connector fallback
+  // 📊 Observability (Tech-Jam 2026)
+  loki: 'grafana',
+  promtail: 'grafana',
+
+  // 🤖 Data Science & ML (Capital Bikeshare & ShopEase)
+  catboost: 'python', // No official icon, fallback to Python
+  lightgbm: 'microsoft', // Built by Microsoft
+  meteostat: 'python',
+  'scikit-learn': 'scikitlearn',
+
+  // 🔌 IoT & Hardware (Smart Wheelchair)
+  esp32: 'espressif', // The manufacturer of ESP32
+  arduino: 'arduino',
+
+  // 🌐 Frontend & Templating
+  ejs: 'javascript', // No official EJS icon
+  gsap: 'greensock', // GSAP's official brand name
+  css3: 'css3',
+  // ☕ The Java / Oracle Trademark Workarounds
+  java: 'openjdk',
+  swing: 'openjdk',
+
+  // 🌐 Networking
+  websocket: 'socketdotio', // Fallback for WebSocket
+
+  // Update your existing wamp fallback just to be safe
+  wamp: 'apache', // Apache is a more accurate representation of WAMP than PHP
+};
 // --- 3. DETERMINE ICON ---
 // Use the map, OR fallback to removing special chars (spaces, dots)
 const iconSlug = iconMap[cleanName] || cleanName.replace(/[^a-z0-9]/g, '');
