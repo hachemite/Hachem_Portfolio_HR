@@ -75,7 +75,7 @@ export const ui = {
     // ── Home ─────────────────────────────────────────────────────────────────
     'home.signal': 'SIGNAL',
     'home.signal.text':
-    'Je conçois des systèmes résilients et des pipelines IA. Actuellement, j\'optimise l\'infrastructure à fort trafic chez SecOps et je développe des agents autonomes.',
+      "Je conçois des systèmes résilients et des pipelines IA. Actuellement, j'optimise l'infrastructure à fort trafic chez SecOps et je développe des agents autonomes.",
     'home.focus': '[FOCUS]',
     'home.focus.text': 'DevOps / Apprentissage par Renforcement',
     'home.focus.tags': [
