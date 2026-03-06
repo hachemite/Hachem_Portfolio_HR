@@ -53,9 +53,6 @@ By prioritizing clean, physically consistent data and advanced temporal feature 
 - **Ablation Validation:** An ablation study proved that the data preprocessing pipeline alone (removing the COVID era and fixing wind physics) was responsible for a nearly 49% improvement in the model's RMSE.
 - **Business Value:** I deployed the model into a web app demo that allows city managers to visualize real-time weather impacts and predict exact hourly rental volumes, enabling proactive and cost-effective truck dispatching for bike rebalancing.
 
-
-
-
 ## 👥 About the Authors
 
 This project was engineered by a dedicated team of Software Engineering and Artificial Intelligence students at the **National School of Applied Sciences (ENSA), Fès** (Class of 2025-2026):

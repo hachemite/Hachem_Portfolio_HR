@@ -8,7 +8,7 @@ current: false
 type: 'Internship'
 stack: ['Docker', 'Maven', 'CI/CD', 'i18n']
 visible: true
-lang : 'fr'
+lang: 'fr'
 ---
 
 - **Optimisation CI/CD :** Résolution des conflits critiques de configuration entre Docker et Maven, restaurant à 100 % la fiabilité des builds automatisés pour la plateforme blockchain "DocCerts".

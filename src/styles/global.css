@@ -92,7 +92,7 @@
 
   /* Firefox Support */
   html {
-    scrollbar-color:  var(--color-ink) var(--color-sand);
+    scrollbar-color: var(--color-ink) var(--color-sand);
     scrollbar-width: thin;
   }
 

@@ -19,7 +19,7 @@ const url = (path: string) =>
   lang === 'en' ? `/${path}`.replace(/\/+/, '/') : `/fr/${path}`.replace(/\/+/, '/');
 
 // ── Config ───────────────────────────────────────────────────────────────────
-const CURRENT_BOOK = 'System Design Interview – An insider\'s guide, Second Edition';
+const CURRENT_BOOK = "System Design Interview – An insider's guide, Second Edition";
 const BOOK_LINK = 'https://bytes.usc.edu/~saty/courses/docs/data/SystemDesignInterview.pdf';
 
 // ── Content ──────────────────────────────────────────────────────────────────
@@ -81,7 +81,6 @@ const myStack = [
   'Google Drive API',
   'Android Studio',
   'Godot Engine',
-
 ];
 
 // ── GitHub Activity (last 30 days) ───────────────────────────────────────────
@@ -171,8 +170,8 @@ try {
             lang === 'en' ? (
               <>
                 <li>
-                  <span class="text-bronze/60 font-bold" /> Currently optimizing high-traffic infra @{' '}
-                  <strong class="text-ink">SecOps</strong>
+                  <span class="text-bronze/60 font-bold" /> Currently optimizing high-traffic infra
+                  @ <strong class="text-ink">SecOps</strong>
                 </li>
                 <li>
                   <span class="text-bronze/60 font-bold" /> Seeking a{' '}
@@ -208,9 +207,9 @@ try {
         <h2
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
-<span class="text-bronze">01.</span>
-<span class="text-ink/40 mr-2 font-normal hidden sm:inline">[SIGNAL]</span>
-{t('home.projects')}
+          <span class="text-bronze">01.</span>
+          <span class="text-ink/40 mr-2 hidden font-normal sm:inline">[SIGNAL]</span>
+          {t('home.projects')}
         </h2>
 
         <div class="mb-6">
@@ -261,9 +260,9 @@ try {
         <h2
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
-<span class="text-bronze">02.</span>
-<span class="text-ink/40 mr-2 font-normal hidden sm:inline">[SYS_LOGS]</span>
-{t('home.experience')}
+          <span class="text-bronze">02.</span>
+          <span class="text-ink/40 mr-2 hidden font-normal sm:inline">[SYS_LOGS]</span>
+          {t('home.experience')}
         </h2>
 
         <div class="mb-6 space-y-4">
@@ -305,11 +304,14 @@ try {
       </section>
 
       <!-- Telemetry -->
-<h2 class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold">
-<span class="text-bronze">03.</span>
-<span class="text-ink/40 mr-2 font-normal hidden sm:inline">[TELEMETRY]</span>
-{t('home.skills_stats')}
-</h2>
+      <section class="mt-12 pt-8">
+        <h2
+          class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
+        >
+          <span class="text-bronze">03.</span>
+          <span class="text-ink/40 mr-2 hidden font-normal sm:inline">[TELEMETRY]</span>
+          {t('home.skills_stats')}
+        </h2>
 
         <!-- Core Stack -->
         <div class="border-ink/10 mb-8 border-b pb-8">
