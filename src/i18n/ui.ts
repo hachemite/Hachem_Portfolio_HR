@@ -16,11 +16,15 @@ export const ui = {
 
     // ── Hero ─────────────────────────────────────────────────────────────────
     'hero.role': 'Software Engineer // Chef Technique @ SecOps',
-
     'hero.cv_btn': 'VIEW FULL CV',
 
-    // ── Home ─────────────────────────────────────────────────────────────────
-    'home.signal': 'SIGNAL',
+    // ── Home (Hybrid Headings) ───────────────────────────────────────────────
+    'home.signal': 'SIGNAL', // Kept for backward compatibility if needed
+    'home.projects': 'Projects',
+    'home.experience': 'Experience',
+    'home.skills_stats': 'Skills & Stats',
+
+    // ── Home (Content) ───────────────────────────────────────────────────────
     'home.signal.text':
       'I engineer resilient systems and AI pipelines. Currently optimizing high-traffic infrastructure at SecOps and building autonomous agents.',
     'home.focus': '[FOCUS]',
@@ -69,11 +73,15 @@ export const ui = {
 
     // ── Hero ─────────────────────────────────────────────────────────────────
     'hero.role': 'Ingénieur Logiciel // Chef Technique @ SecOps',
-
     'hero.cv_btn': 'VOIR LE CV COMPLET',
 
-    // ── Home ─────────────────────────────────────────────────────────────────
+    // ── Home (Hybrid Headings) ───────────────────────────────────────────────
     'home.signal': 'SIGNAL',
+    'home.projects': 'Projets',
+    'home.experience': 'Expérience',
+    'home.skills_stats': 'Compétences & Stats',
+
+    // ── Home (Content) ───────────────────────────────────────────────────────
     'home.signal.text':
       "Je conçois des systèmes résilients et des pipelines IA. Actuellement, j'optimise l'infrastructure à fort trafic chez SecOps et je développe des agents autonomes.",
     'home.focus': '[FOCUS]',

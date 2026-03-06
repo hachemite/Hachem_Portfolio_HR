@@ -19,8 +19,8 @@ const url = (path: string) =>
   lang === 'en' ? `/${path}`.replace(/\/+/, '/') : `/fr/${path}`.replace(/\/+/, '/');
 
 // ── Config ───────────────────────────────────────────────────────────────────
-const CURRENT_BOOK = 'Designing Data-Intensive Applications';
-const BOOK_LINK = 'https://dataintensive.net/';
+const CURRENT_BOOK = 'System Design Interview – An insider\'s guide, Second Edition';
+const BOOK_LINK = 'https://bytes.usc.edu/~saty/courses/docs/data/SystemDesignInterview.pdf';
 
 // ── Content ──────────────────────────────────────────────────────────────────
 const experience = await getCollection(
@@ -42,17 +42,46 @@ const commitTitle = latestWiki?.data.title ?? 'Initializing Wiki Infrastructure'
 const commitLink = latestWiki ? `/wiki/${latestWiki.slug}` : '/wiki';
 
 // ── Core Stack ───────────────────────────────────────────────────────────────
+// ── Core Stack ───────────────────────────────────────────────────────────────
 const myStack = [
+  // Systems & Languages
   'Python',
-  'C++',
+  'C',
+  'Java',
+  'TypeScript',
+  'Linux',
+
+  // Infrastructure, Cloud & DevOps
   'Docker',
-  'Kubernetes',
   'AWS',
   'Terraform',
+  'GitHub Actions',
+  'Cloudflare',
   'Nginx',
-  'Linux',
+  'Grafana',
+
+  // Backend & AI
+  'Spring Boot',
+  'FastAPI',
   'Node.js',
+  'Django',
+  'TensorFlow',
+  'PyTorch',
+  'Scikit-Learn',
+  'PostgreSQL',
+  'MongoDB',
+  'Redis',
+
+  // Frontend & Tooling
+  'Angular',
+  'React',
   'Astro',
+
+  // APIs & SDKs
+  'Google Drive API',
+  'Android Studio',
+  'Godot Engine',
+
 ];
 
 // ── GitHub Activity (last 30 days) ───────────────────────────────────────────
@@ -91,7 +120,7 @@ try {
   lang={lang}
 >
   <!-- Mobile hero grid -->
-  <div class="mb-2 flex w-full justify-center pt-16 md:hidden">
+  <div class="mb-10 flex w-full justify-center pt-16 md:hidden">
     <BouncyGrid instanceId="mobile" />
   </div>
 
@@ -142,11 +171,11 @@ try {
             lang === 'en' ? (
               <>
                 <li>
-                  <span class="text-bronze font-bold" /> Currently optimizing high-traffic infra @{' '}
+                  <span class="text-bronze/60 font-bold" /> Currently optimizing high-traffic infra @{' '}
                   <strong class="text-ink">SecOps</strong>
                 </li>
                 <li>
-                  <span class="text-bronze font-bold" /> Seeking a{' '}
+                  <span class="text-bronze/60 font-bold" /> Seeking a{' '}
                   <strong class="text-bronze">PFA DevOps/AI Internship</strong> — July–Aug 2026
                 </li>
               </>
@@ -179,16 +208,17 @@ try {
         <h2
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
-          <span class="text-bronze">01.</span>
-          {t('home.signal')}
+<span class="text-bronze">01.</span>
+<span class="text-ink/40 mr-2 font-normal hidden sm:inline">[SIGNAL]</span>
+{t('home.projects')}
         </h2>
 
         <div class="mb-6">
-          <span class="text-ink/40 mb-3 block font-mono text-sm">{t('home.focus')}</span>
+          <span class="text-ink/60 mb-3 block font-mono text-sm">{t('home.focus')}</span>
           <div class="flex flex-wrap gap-2 font-mono text-sm">
             {
               (t('home.focus.tags') as readonly string[]).map((tag) => (
-                <span class="border-ink/20 text-ink/80 hover:border-bronze cursor-default border bg-white/40 px-3 py-1.5 transition-colors">
+                <span class="border-ink/20 text-ink/80 hover:border-bronze cursor-default border bg-white/60 px-3 py-1.5 transition-colors">
                   [{tag}]
                 </span>
               ))
@@ -231,8 +261,9 @@ try {
         <h2
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
-          <span class="text-bronze">02.</span>
-          {t('home.logs')}
+<span class="text-bronze">02.</span>
+<span class="text-ink/40 mr-2 font-normal hidden sm:inline">[SYS_LOGS]</span>
+{t('home.experience')}
         </h2>
 
         <div class="mb-6 space-y-4">
@@ -242,12 +273,12 @@ try {
                 href={url('cv')}
                 class="group grid grid-cols-[80px_1fr] items-baseline gap-4 md:grid-cols-[100px_1fr]"
               >
-                <span class="text-ink/50 group-hover:text-bronze font-mono text-xs transition-colors">
+                <span class="text-ink/70 group-hover:text-bronze font-mono text-sm transition-colors">
                   {entry.data.startDate.toISOString().substring(0, 7)}
                 </span>
                 <h3 class="text-ink m-0 text-base leading-tight font-bold decoration-dotted underline-offset-4 transition-all group-hover:underline">
                   {entry.data.role}{' '}
-                  <span class="text-ink/40 font-normal">@ {entry.data.company}</span>
+                  <span class="text-ink/60 font-normal">@ {entry.data.company}</span>
                 </h3>
               </a>
             ))
@@ -263,7 +294,7 @@ try {
       </section>
 
       <!-- Contact CTA -->
-      <section class="border-ink border bg-white/40 p-6 md:p-8">
+      <section class="border-ink border bg-white/60 p-6 md:p-8">
         <p class="text-ink/80 mb-6 font-mono text-lg">{t('home.contact.text')}</p>
         <a
           href="mailto:workhachem@gmail.com"
@@ -274,14 +305,15 @@ try {
       </section>
 
       <!-- Telemetry -->
-      <section class="border-ink/20 mt-12 border-t pt-8">
-        <h2 class="text-ink/50 mb-6 font-mono text-sm font-bold tracking-widest uppercase">
-          [TELEMETRY_&_STATS]
-        </h2>
+<h2 class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold">
+<span class="text-bronze">03.</span>
+<span class="text-ink/40 mr-2 font-normal hidden sm:inline">[TELEMETRY]</span>
+{t('home.skills_stats')}
+</h2>
 
         <!-- Core Stack -->
         <div class="border-ink/10 mb-8 border-b pb-8">
-          <span class="text-ink/40 mb-3 block font-mono text-sm">&gt;&gt; CORE_STACK</span>
+          <span class="text-ink/60 mb-3 block font-mono text-sm">&gt;&gt; CORE_STACK</span>
           <div class="flex flex-wrap gap-2">
             {myStack.map((tech) => <TechBadge name={tech} />)}
           </div>
@@ -289,7 +321,7 @@ try {
 
         <!-- Activity Graph -->
         <div class="border-ink/10 mb-8 border-b pb-8">
-          <span class="text-ink/40 mb-3 block font-mono text-sm">
+          <span class="text-ink/60 mb-3 block font-mono text-sm">
             &gt;&gt; {t('home.activity.label')}
           </span>
 
@@ -312,7 +344,7 @@ try {
             }
           </div>
 
-          <div class="text-ink/40 mt-2 flex justify-between font-mono text-[10px]">
+          <div class="text-ink/60 mt-2 flex justify-between font-mono text-xs">
             <span>[T-MINUS_30D]</span>
             <span class="text-bronze animate-pulse">[CURRENT_PULSE]</span>
           </div>
