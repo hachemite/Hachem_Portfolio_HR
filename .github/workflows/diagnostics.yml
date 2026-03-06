@@ -50,13 +50,13 @@ jobs:
           RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.cloudflare.com/client/v4/user" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json")
-          
+
           HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
           BODY=$(echo "$RESPONSE" | head -n -1)
-          
+
           echo "HTTP Status: $HTTP_CODE"
           echo "Response: $BODY"
-          
+
           if [ "$HTTP_CODE" = "200" ]; then
             echo "✅ API Token is VALID"
           else
@@ -70,13 +70,13 @@ jobs:
           RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json")
-          
+
           HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
           BODY=$(echo "$RESPONSE" | head -n -1)
-          
+
           echo "HTTP Status: $HTTP_CODE"
           echo "Response: $BODY"
-          
+
           if [ "$HTTP_CODE" = "200" ]; then
             echo "✅ Account ID is VALID and accessible"
           else
@@ -90,13 +90,13 @@ jobs:
           RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/${{ secrets.CLOUDFLARE_PROJECT_NAME }}" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json")
-          
+
           HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
           BODY=$(echo "$RESPONSE" | head -n -1)
-          
+
           echo "HTTP Status: $HTTP_CODE"
           echo "Response: $BODY"
-          
+
           if [ "$HTTP_CODE" = "200" ]; then
             echo "✅ Project EXISTS and is accessible"
           else

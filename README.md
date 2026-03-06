@@ -2,7 +2,7 @@
 
 > "The Debug Console meets The Academic Paper."
 
-This repository is not a standard portfolio. It is a **performance-optimised digital CV** designed to demonstrate senior engineering competence through **resource efficiency, information density, and system-design thinking**. 
+This repository is not a standard portfolio. It is a **performance-optimised digital CV** designed to demonstrate senior engineering competence through **resource efficiency, information density, and system-design thinking**.
 
 Deployed at: [hachemsqualli.xyz](https://hachemsqualli.xyz)
 
@@ -10,20 +10,21 @@ Deployed at: [hachemsqualli.xyz](https://hachemsqualli.xyz)
 
 This project is built and maintained as a **Production Environment**, completely avoiding "Click-to-Deploy" anti-patterns.
 
-* **Content as Code:** Resume data and digital garden notes are managed via strictly typed Astro Content Collections, validated at build time.
-* **CI/CD Automation:** Automated workflows using GitHub Actions handle linting, type-checking, and zero-downtime edge deployments.
-* **Military-Grade SecOps:** Protected by strict Layer 7 HTTP security headers (`Content-Security-Policy`, `X-Frame-Options`, `Permissions-Policy`) ensuring an A+ security rating.
-* **Observability:** Includes a `/health` endpoint designed for load balancer and Prometheus monitoring.
-* **Future-Proof Infrastructure:** Includes a multi-stage `Dockerfile` and `docker-compose.yml` for instant, vendor-independent VPS deployment.
+- **Content as Code:** Resume data and digital garden notes are managed via strictly typed Astro Content Collections, validated at build time.
+- **CI/CD Automation:** Automated workflows using GitHub Actions handle linting, type-checking, and zero-downtime edge deployments.
+- **Military-Grade SecOps:** Protected by strict Layer 7 HTTP security headers (`Content-Security-Policy`, `X-Frame-Options`, `Permissions-Policy`) ensuring an A+ security rating.
+- **Observability:** Includes a `/health` endpoint designed for load balancer and Prometheus monitoring.
+- **Future-Proof Infrastructure:** Includes a multi-stage `Dockerfile` and `docker-compose.yml` for instant, vendor-independent VPS deployment.
 
 ## 🎨 Visual Identity: "Sand & Dust"
 
-The UI is built on a strict 1-bit monochrome palette (`#FDF8D8` Sand, `#494949` Dust, `#8C7B65` Bronze). 
+The UI is built on a strict 1-bit monochrome palette (`#FDF8D8` Sand, `#494949` Dust, `#8C7B65` Bronze).
 
 To achieve the "lvl374 / NIDANA" aesthetic without draining battery life, the background relies on a highly engineered, low-resolution 2D Canvas:
-* **Generative Mesh:** A Delaunay triangulation point cloud drifting at a throttled 1-2 FPS.
-* **Performance Guarantee:** Consumes negligible CPU, achieving a 100/100 Lighthouse score with a Time to Interactive of < 0.5s.
-* **Interaction:** Points gently repel the cursor and snap to a rigid grid on click, representing "order from chaos."
+
+- **Generative Mesh:** A Delaunay triangulation point cloud drifting at a throttled 1-2 FPS.
+- **Performance Guarantee:** Consumes negligible CPU, achieving a 100/100 Lighthouse score with a Time to Interactive of < 0.5s.
+- **Interaction:** Points gently repel the cursor and snap to a rigid grid on click, representing "order from chaos."
 
 ## 🛠️ Local Setup & Commands
 
@@ -47,18 +48,13 @@ npm run qa
 
 ## 📡 Telemetry
 
-* **Status:** `ALL SYSTEMS NOMINAL`
-* **Routing:** `Cloudflare Edge`
-* **Uptime Target:** `99.99%`
+- **Status:** `ALL SYSTEMS NOMINAL`
+- **Routing:** `Cloudflare Edge`
+- **Uptime Target:** `99.99%`
 
 ---
 
-*Looking for bugs? Submit a PR.*
-
-
-
-
-
+_Looking for bugs? Submit a PR._
 
 # Astro Starter Kit: Minimal
 

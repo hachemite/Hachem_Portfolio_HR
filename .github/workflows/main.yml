@@ -5,7 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -29,13 +29,12 @@ jobs:
       - name: 📦 Install & QA
         run: |
           npm ci
-          npm run qa 
+          npm run qa
 
       - name: 🏗️ Build
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: ☁️ Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
