@@ -55,4 +55,4 @@ Allow: /
 # -----------------------------------------------------
 # SITEMAP DISCOVERY
 # -----------------------------------------------------
-Sitemap: https://hachemsqualli.xyz/sitemap-index.xml
+Sitemap: https://hachemsqualli.xyz/sitemap-0.xml
