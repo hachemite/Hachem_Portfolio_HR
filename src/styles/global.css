@@ -85,6 +85,35 @@
     background-color: var(--color-bronze);
     color: var(--color-sand);
   }
+
+  /* --------------------------------------------------------- */
+  /* CUSTOM SCROLLBAR (Mechanical & Pixel-Perfect)             */
+  /* --------------------------------------------------------- */
+
+  /* Firefox Support */
+  html {
+    scrollbar-color:  var(--color-ink) var(--color-sand);
+    scrollbar-width: thin;
+  }
+
+  /* WebKit Support (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 8px; /* Slim and precise */
+    height: 8px; /* For horizontal scrolling like code blocks */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-sand); /* Blends with the page */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-ink); /* The primary 'Dust' color */
+    border-radius: 0px; /* Kept sharp and blocky, no soft curves */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-bronze); /* Highlights to Bronze on hover */
+  }
 }
 
 @layer utilities {
