@@ -18,10 +18,8 @@ const {
 } = Astro.props;
 
 // --- SEO: CANONICAL & HREFLANG LOGIC ---
-// Ensures Google knows the exact URL of this page
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-// Calculates the URL for the alternate language version
 const altLang = lang === 'en' ? 'fr' : 'en';
 const altPath =
   lang === 'en'
@@ -29,19 +27,47 @@ const altPath =
     : Astro.url.pathname.replace(/^\/fr/, '') || '/';
 const alternateURL = new URL(altPath, Astro.site);
 
-// Schema Data (SEO)
+// UPGRADE: Force x-default to strictly point to your primary English version
+const xDefaultURL = new URL(
+  lang === 'en' ? Astro.url.pathname : Astro.url.pathname.replace(/^\/fr/, '') || '/',
+  Astro.site
+);
+
+// --- SEO: KNOWLEDGE GRAPH (JSON-LD) ---
 const schemaData = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Hachem Squalli El Houssaini',
-  jobTitle: 'Software Engineer & Chef Technique',
+  alternateName: ['هاشم الصقلي الحسيني', 'hachemite', 'hazzine said', 'Hachemite', 'Dodoracula'], // Upgraded: Exact Arabic Name
+  jobTitle: 'Software & AI Engineer',
+  description: description, // Upgraded: Bound to your dynamic Astro prop
   url: Astro.site,
   image: new URL('/profile.jpg', Astro.site).toString(),
+  sameAs: [
+    // UPGRADE: Linking your digital identities
+    'https://github.com/hachemite',
+    'https://www.linkedin.com/in/hachem-squalli-el-houssaini-2a7957250', // IMPORTANT: Verify this LinkedIn URL!
+  ],
   affiliation: {
     '@type': 'Organization',
-    name: 'SecOps Club',
+    name: 'SecOps Club ENSA Fès',
   },
-  knowsAbout: ['Docker', 'Kubernetes', 'Artificial Intelligence', 'Cloud Architecture'],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'ENSA Fès - École Nationale des Sciences Appliquées',
+    department: 'Filière Ingénierie Logicielle et Intelligence Artificielle (ILIA)',
+  },
+  knowsAbout: [
+    'Software Engineering',
+    'Ingénierie Logicielle',
+    'Artificial Intelligence',
+    'IA',
+    'Cloud Computing',
+    'DevOps',
+    'AWS',
+    'Docker',
+    'Kubernetes',
+  ],
 };
 ---
 
@@ -61,11 +87,7 @@ const schemaData = {
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" hreflang={lang} href={canonicalURL} />
     <link rel="alternate" hreflang={altLang} href={alternateURL} />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={new URL(lang === 'en' ? Astro.url.pathname : altPath, Astro.site)}
-    />
+    <link rel="alternate" hreflang="x-default" href={xDefaultURL} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
@@ -80,6 +102,7 @@ const schemaData = {
     <meta property="twitter:image" content={new URL(image, Astro.site)} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
     <script is:inline>
       console.log(
         '%c[SYSTEM STATUS]: ALL SYSTEMS NOMINAL',
@@ -101,6 +124,7 @@ const schemaData = {
 
     <div
       id="canvas-layer"
+      aria-hidden="true"
       class="z-canvas pointer-events-none fixed inset-0 h-full w-full opacity-50"
     >
     </div>
@@ -125,7 +149,7 @@ const schemaData = {
           Source Code ↗
         </a>
         <span class="opacity-30">|</span>
-        <span>Last Update: 2026-02</span>
+        <span>Last Update: 2026-03</span>
       </div>
     </footer>
   </body>
