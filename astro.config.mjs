@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap'; // <-- YOU FORGOT THIS LINE
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://hachemsqualli.xyz', // This is required for the sitemap to work
+  site: 'https://hachemsqualli.com', // This is required for the sitemap to work
   vite: {
     plugins: [tailwindcss()],
   },
