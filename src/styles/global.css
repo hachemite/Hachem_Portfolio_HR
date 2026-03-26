@@ -6,6 +6,9 @@
   --color-sand: #fdf8d8; /* Base background color */
   --color-ink: #494949; /* Primary text color ; Foreground color */
 
+  --color-ink-muted: #6b6560; /* Secondary text color for less emphasis */
+
+  
   /* Bronze Scale */
   --color-bronze: #8c7b65; /* Primary accent color */
   --color-bronze-light: #c0a080; /* Lighter accent for hover states */

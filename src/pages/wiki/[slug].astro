@@ -53,7 +53,7 @@ const rawText = note.body
   <div class="mb-8">
     <a
       href="/wiki"
-      class="text-ink/60 hover:text-bronze font-mono text-xs decoration-dotted underline-offset-4 hover:underline"
+      class="text-ink-subtle hover:text-bronze font-mono text-xs decoration-dotted underline-offset-4 hover:underline"
     >
       cd ..
     </a>
@@ -61,7 +61,7 @@ const rawText = note.body
 
   <article class="mx-auto max-w-2xl">
     <header class="border-ink mb-12 border-b-2 pb-6">
-      <div class="text-ink/40 mb-2 flex gap-4 font-mono text-xs">
+      <div class="text-ink-subtle mb-2 flex gap-4 font-mono text-xs">
         <span>FILE_ID: GH_ISSUE_{note.number}</span>
         <span>AUTHOR: {note.user?.login || 'hachemite'}</span>
       </div>
@@ -74,7 +74,7 @@ const rawText = note.body
         <span class="text-bronze bg-sand border-bronze border px-2 py-1">
           {publishDate.toISOString().split('T')[0]}
         </span>
-        <div class="text-ink/60 flex gap-2">
+        <div class="text-ink-subtle flex gap-2">
           {/* 5. Edge Case Resilience: Optional Chaining on labels */}
           {note.labels?.map((t: any) => <span>#{t.name}</span>)}
         </div>
@@ -84,7 +84,7 @@ const rawText = note.body
     <div class="prose-industrial" set:html={contentHtml} />
   </article>
 
-  <div class="border-ink/10 text-ink/30 mt-24 border-t pt-8 text-center font-mono text-xs">
+  <div class="border-ink/10 text-ink-subtle mt-24 border-t pt-8 text-center font-mono text-xs">
     --- END OF FILE ---
   </div>
 </BaseLayout>

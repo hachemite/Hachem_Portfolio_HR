@@ -34,7 +34,7 @@ const socialLinks = [
             href={link.href}
             target="_blank"
             title={link.label}
-            class="border-ink/20 text-ink/60 active:bg-bronze flex flex-1 items-center justify-center border bg-transparent py-3 transition-colors active:text-white"
+            class="border-ink/20 text-ink-subtle active:bg-bronze flex flex-1 items-center justify-center border bg-transparent py-3 transition-colors active:text-white"
           >
             <span class="sr-only">{link.label}</span>
             <Fragment set:html={link.icon} />
@@ -56,22 +56,22 @@ const socialLinks = [
       class="border-ink/10 mt-3 flex w-full flex-col justify-between gap-4 border-b-2 pb-4 md:flex-row md:items-end"
     >
       <p
-        class="text-ink/80 w-full text-lg font-bold break-words whitespace-normal md:w-auto md:text-xl"
+        class="text-ink-subtle w-full text-lg font-bold break-words whitespace-normal md:w-auto md:text-xl"
       >
         {t('hero.role')}
       </p>
 
       <div class="flex shrink-0 flex-wrap items-center gap-4 font-mono text-xs">
-        <span class="text-ink/50 tracking-widest">[LOC]: FÈS, MA</span>
+        <span class="text-ink-subtle tracking-widest">[LOC]: FÈS, MA</span>
 
         {
           isAvailable ? (
-            <span class="text-ink/80 flex items-center gap-2 font-bold tracking-wide whitespace-nowrap">
+            <span class="text-ink-subtle flex items-center gap-2 font-bold tracking-wide whitespace-nowrap">
               <span class="bg-info h-2.5 w-2.5 rounded-full" />
               AVAILABLE
             </span>
           ) : (
-            <span class="text-ink/40 flex items-center gap-2 font-bold tracking-wide whitespace-nowrap">
+            <span class="text-ink-subtle flex items-center gap-2 font-bold tracking-wide whitespace-nowrap">
               <span class="bg-danger h-2.5 w-2.5 rounded-full" />
               UNAVAILABLE
             </span>
