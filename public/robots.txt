@@ -1,5 +1,5 @@
 # -----------------------------------------------------
-# robots.txt for hachemsqualli.xyz
+# robots.txt for hachemsqualli.com
 # -----------------------------------------------------
 
 
@@ -7,52 +7,8 @@
 User-agent: *
 Allow: /
 
-# -----------------------------------------------------
-# Explicitly Allow AI & LLM Crawlers
-# -----------------------------------------------------
-# OpenAI (ChatGPT / SearchGPT)
-User-agent: GPTBot
-Allow: /
-User-agent: ChatGPT-User
-Allow: /
-User-agent: OAI-SearchBot
-Allow: /
-
-# DeepSeek (DeepSeek Coder / DeepSeek V3/R1)
-User-agent: DeepSeekBot
-Allow: /
-
-# Anthropic (Claude)
-User-agent: ClaudeBot
-Allow: /
-User-agent: Anthropic-ai
-Allow: /
-
-# Google AI (Gemini / AI Overviews)
-User-agent: Google-Extended
-Allow: /
-
-# Meta (Llama 3 / Meta AI)
-User-agent: meta-externalagent
-Allow: /
-
-# Apple (Apple Intelligence)
-User-agent: Applebot-Extended
-Allow: /
-
-# Perplexity AI
-User-agent: PerplexityBot
-Allow: /
-
-# Cohere
-User-agent: cohere-ai
-Allow: /
-
-# Common Crawl (Used by many open-source models)
-User-agent: CCBot
-Allow: /
 
 # -----------------------------------------------------
 # SITEMAP DISCOVERY
 # -----------------------------------------------------
-Sitemap: https://hachemsqualli.xyz/sitemap-0.xml
+Sitemap: https://hachemsqualli.com/sitemap-0.xml
