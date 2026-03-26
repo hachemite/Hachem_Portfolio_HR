@@ -42,7 +42,7 @@ const socialLinks = [
 <nav
   class="pointer-events-none absolute top-0 left-0 z-50 flex w-full items-start justify-between p-4 md:p-8"
 >
-  <div class="text-ink/60 pointer-events-auto hidden items-center gap-4 font-mono text-xs md:flex">
+  <div class="text-ink-subtle pointer-events-auto hidden items-center gap-4 font-mono text-xs md:flex">
     <div class="flex gap-4">
       {
         socialLinks.map((link) => (
@@ -98,11 +98,11 @@ const socialLinks = [
         'transition-colors',
         !isFr
           ? 'text-bronze underline decoration-dotted underline-offset-4'
-          : 'text-ink/40 hover:text-ink',
+          : 'text-ink-subtle hover:text-ink',
       ]}>EN</a
     >
 
-    <span class="text-ink/20">/</span>
+    <span class="text-ink-subtle">/</span>
 
     <a
       href={frUrl}
@@ -110,7 +110,7 @@ const socialLinks = [
         'transition-colors',
         isFr
           ? 'text-bronze underline decoration-dotted underline-offset-4'
-          : 'text-ink/40 hover:text-ink',
+          : 'text-ink-subtle hover:text-ink',
       ]}>FR</a
     >
   </div>

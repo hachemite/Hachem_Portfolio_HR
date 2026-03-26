@@ -130,7 +130,7 @@ try {
     <div class="space-y-12">
       <!-- Hero Bio -->
       <section class="max-w-2xl">
-        <p class="text-ink/80 mb-5 text-lg leading-relaxed">
+        <p class="text-ink-subtle mb-5 text-lg leading-relaxed">
           {
             lang === 'en' ? (
               <>
@@ -165,7 +165,7 @@ try {
           }
         </p>
 
-        <ul class="text-ink/70 mb-8 space-y-2 font-mono text-sm">
+        <ul class="text-ink-subtle mb-8 space-y-2 font-mono text-sm">
           {
             lang === 'en' ? (
               <>
@@ -208,16 +208,16 @@ try {
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
           <span class="text-bronze">01.</span>
-          <span class="text-ink/40 mr-2 hidden font-normal sm:inline">[SIGNAL]</span>
+          <span class="text-bronze mr-2 hidden font-normal sm:inline">[SIGNAL]</span>
           {t('home.projects')}
         </h2>
 
         <div class="mb-6">
-          <span class="text-ink/60 mb-3 block font-mono text-sm">{t('home.focus')}</span>
+          <span class="text-ink-subtle mb-3 block font-mono text-sm">{t('home.focus')}</span>
           <div class="flex flex-wrap gap-2 font-mono text-sm">
             {
               (t('home.focus.tags') as readonly string[]).map((tag) => (
-                <span class="border-ink/20 text-ink/80 hover:border-bronze cursor-default border bg-white/60 px-3 py-1.5 transition-colors">
+                <span class="border-ink/20 text-ink-subtle hover:border-bronze cursor-default border bg-white/60 px-3 py-1.5 transition-colors">
                   [{tag}]
                 </span>
               ))
@@ -225,7 +225,7 @@ try {
           </div>
         </div>
 
-        <div class="text-ink/60 mb-6 font-mono text-sm">
+        <div class="text-ink-subtle mb-6 font-mono text-sm">
           {t('home.indexing.prefix')}
           <span class="text-ink font-bold">{allProjects.length}</span>
           {t('home.indexing.suffix')}
@@ -241,7 +241,7 @@ try {
                 <h3 class="text-ink group-hover:text-bronze text-lg font-bold transition-colors">
                   {project.data.title}
                 </h3>
-                <p class="text-ink/70 mt-1 line-clamp-2 text-sm">{project.data.description}</p>
+                <p class="text-ink-subtle mt-1 line-clamp-2 text-sm">{project.data.description}</p>
               </a>
             ))
           }
@@ -261,7 +261,7 @@ try {
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
           <span class="text-bronze">02.</span>
-          <span class="text-ink/40 mr-2 hidden font-normal sm:inline">[SYS_LOGS]</span>
+          <span class="text-bronze mr-2 hidden font-normal sm:inline">[SYS_LOGS]</span>
           {t('home.experience')}
         </h2>
 
@@ -272,12 +272,12 @@ try {
                 href={url('cv')}
                 class="group grid grid-cols-[80px_1fr] items-baseline gap-4 md:grid-cols-[100px_1fr]"
               >
-                <span class="text-ink/70 group-hover:text-bronze font-mono text-sm transition-colors">
+                <span class="text-ink-subtle group-hover:text-bronze font-mono text-sm transition-colors">
                   {entry.data.startDate.toISOString().substring(0, 7)}
                 </span>
                 <h3 class="text-ink m-0 text-base leading-tight font-bold decoration-dotted underline-offset-4 transition-all group-hover:underline">
                   {entry.data.role}{' '}
-                  <span class="text-ink/60 font-normal">@ {entry.data.company}</span>
+                  <span class="text-ink-subtle font-normal">@ {entry.data.company}</span>
                 </h3>
               </a>
             ))
@@ -294,7 +294,7 @@ try {
 
       <!-- Contact CTA -->
       <section class="border-ink border bg-white/60 p-6 md:p-8">
-        <p class="text-ink/80 mb-6 font-mono text-lg">{t('home.contact.text')}</p>
+        <p class="text-ink-subtle mb-6 font-mono text-lg">{t('home.contact.text')}</p>
         <a
           href="mailto:workhachem@gmail.com"
           class="border-ink bg-ink text-sand hover:bg-bronze hover:border-bronze inline-flex items-center justify-center border px-6 py-3 font-mono text-sm font-bold transition-colors"
@@ -309,13 +309,13 @@ try {
           class="text-ink border-ink mb-6 flex items-center gap-3 border-b-2 pb-2 text-2xl font-bold"
         >
           <span class="text-bronze">03.</span>
-          <span class="text-ink/40 mr-2 hidden font-normal sm:inline">[TELEMETRY]</span>
+          <span class="text-bronze mr-2 hidden font-normal sm:inline">[TELEMETRY]</span>
           {t('home.skills_stats')}
         </h2>
 
         <!-- Core Stack -->
         <div class="border-ink/10 mb-8 border-b pb-8">
-          <span class="text-ink/60 mb-3 block font-mono text-sm">&gt;&gt; CORE_STACK</span>
+          <span class="text-ink-subtle mb-3 block font-mono text-sm">&gt;&gt; CORE_STACK</span>
           <div class="flex flex-wrap gap-2">
             {myStack.map((tech) => <TechBadge name={tech} />)}
           </div>
@@ -323,7 +323,7 @@ try {
 
         <!-- Activity Graph -->
         <div class="border-ink/10 mb-8 border-b pb-8">
-          <span class="text-ink/60 mb-3 block font-mono text-sm">
+          <span class="text-ink-subtle mb-3 block font-mono text-sm">
             &gt;&gt; {t('home.activity.label')}
           </span>
 
@@ -346,7 +346,7 @@ try {
             }
           </div>
 
-          <div class="text-ink/60 mt-2 flex justify-between font-mono text-xs">
+          <div class="text-ink-subtle mt-2 flex justify-between font-mono text-xs">
             <span>[T-MINUS_30D]</span>
             <span class="text-bronze animate-pulse">[CURRENT_PULSE]</span>
           </div>

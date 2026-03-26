@@ -44,7 +44,7 @@ const href = `/projects/${project.slug}`;
       </h3>
     </div>
 
-    <p class="text-ink/80 mb-6 flex-grow text-sm leading-relaxed">
+    <p class="text-ink-subtle mb-6 flex-grow text-sm leading-relaxed">
       {description}
     </p>
 
@@ -52,7 +52,7 @@ const href = `/projects/${project.slug}`;
       {stack.slice(0, 3).map((tech: string) => <TechBadge name={tech} />)}
       {
         stack.length > 3 && (
-          <span class="text-ink/40 self-center font-mono text-[10px]">+{stack.length - 3}</span>
+          <span class="text-ink-subtle self-center font-mono text-[10px]">+{stack.length - 3}</span>
         )
       }
     </div>

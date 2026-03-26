@@ -68,7 +68,7 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
             Hachem Squalli
           </h1>
           <p class="text-bronze font-mono text-lg">{t('hero.role')}</p>
-          <div class="text-ink/70 mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-sm">
+          <div class="text-ink-subtle mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-sm">
             <a href="mailto:workhachem@gmail.com" class="hover:text-bronze">workhachem@gmail.com</a>
             <span class="hidden sm:inline">|</span>
             <a href="https://github.com/hachemite" class="hover:text-bronze">github.com/hachemite</a
@@ -99,7 +99,7 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
       >
         {t('cv.summary')}
       </h2>
-      <p class="text-ink/80 leading-relaxed">
+      <p class="text-ink-subtle leading-relaxed">
         {t('cv.summary.text')}
       </p>
     </section>
@@ -115,7 +115,7 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
           skills.map((skill) => (
             <div class="flex items-start gap-2">
               <span class="text-ink font-bold whitespace-nowrap">{skill.data.category}:</span>
-              <span class="text-ink/80">{skill.data.items.join(', ')}</span>
+              <span class="text-ink-subtle">{skill.data.items.join(', ')}</span>
             </div>
           ))
         }
@@ -142,7 +142,7 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
                         : job.data.endDate?.toISOString().substring(0, 7)}
                     </span>
                   </div>
-                  <div class="text-ink/60 mb-2 font-mono text-sm">
+                  <div class="text-ink-subtle mb-2 font-mono text-sm">
                     {job.data.company} | {job.data.location}
                   </div>
                   <div class="prose-industrial text-sm">
@@ -174,7 +174,7 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
                       {role.data.current ? t('cv.present') : role.data.endDate?.getFullYear()}
                     </span>
                   </div>
-                  <div class="text-ink/60 mb-2 font-mono text-sm">{role.data.company}</div>
+                  <div class="text-ink-subtle mb-2 font-mono text-sm">{role.data.company}</div>
                   <div class="prose-industrial text-sm">
                     <Content />
                   </div>
@@ -208,7 +208,7 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
                         class="hover:text-bronze group decoration-dotted underline-offset-4 transition-colors hover:underline"
                       >
                         {proj.data.name}
-                        <span class="text-ink/40 ml-1 inline-block text-sm transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
+                        <span class="text-ink-subtle ml-1 inline-block text-sm transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
                           ↗
                         </span>
                       </a>
@@ -219,11 +219,11 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
 
                   <span class="text-bronze font-mono text-sm">{proj.data.year}</span>
                 </div>
-                <div class="text-ink/80 mb-2 font-mono text-sm">
+                <div class="text-ink-subtle mb-2 font-mono text-sm">
                   {proj.data.role && <span class="mr-2 font-bold">{proj.data.role} |</span>}
-                  <span class="text-ink/50 uppercase">{proj.data.stack.join(', ')}</span>
+                  <span class="text-ink-subtle uppercase">{proj.data.stack.join(', ')}</span>
                 </div>
-                <ul class="text-ink/80 list-none space-y-1 pl-5 text-sm">
+                <ul class="text-ink-subtle list-none space-y-1 pl-5 text-sm">
                   {proj.data.details.map((detail) => (
                     <li>{detail}</li>
                   ))}
@@ -251,8 +251,8 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
                   {edu.data.yearStart} — {edu.data.yearEnd || t('cv.present')}
                 </span>
               </div>
-              <div class="text-ink/80 font-mono text-sm">{edu.data.institution}</div>
-              <p class="text-ink/60 mt-1 text-sm">{edu.data.details}</p>
+              <div class="text-ink-subtle font-mono text-sm">{edu.data.institution}</div>
+              <p class="text-ink-subtle mt-1 text-sm">{edu.data.details}</p>
             </div>
           ))
         }
@@ -270,8 +270,8 @@ const cvProjects = allCvProjects.sort((a, b) => b.data.year - a.data.year);
               <li class="flex flex-col gap-2 md:flex-row md:items-baseline">
                 <span class="text-bronze w-24 shrink-0 font-mono text-sm">{honor.data.date}</span>
                 <span class="text-ink font-bold">{honor.data.title}</span>
-                <span class="text-ink/60 hidden text-sm md:inline">—</span>
-                <span class="text-ink/60 text-sm">{honor.data.issuer}</span>
+                <span class="text-ink-subtle hidden text-sm md:inline">—</span>
+                <span class="text-ink-subtle text-sm">{honor.data.issuer}</span>
               </li>
             ))}
           </ul>

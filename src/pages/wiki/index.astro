@@ -42,11 +42,11 @@ function getSize(txt: string) {
   <div class="mb-8">
     <h1 class="mb-2 font-sans text-4xl font-bold md:text-5xl">DIGITAL_GARDEN</h1>
 
-    <p class="text-ink/80 mb-4 max-w-2xl text-lg">
+    <p class="text-ink-subtle mb-4 max-w-2xl text-lg">
 Unpolished field notes, raw technical logs, and open research on whatever interests me.
     </p>
 
-    <p class="text-ink/60 font-mono text-sm">&gt; Establishing SSH connection to GitHub...</p>
+    <p class="text-ink-subtle font-mono text-sm">&gt; Establishing SSH connection to GitHub...</p>
   </div>
 
   <div
@@ -83,8 +83,8 @@ Unpolished field notes, raw technical logs, and open research on whatever intere
               class="group decoration-none flex flex-col border-b border-white/5 py-3 transition-colors hover:bg-white/10 md:flex-row md:items-center md:border-transparent md:py-0"
             >
               <div class="hidden min-w-max shrink-0 items-center gap-3 pr-4 md:flex">
-                <span class="text-ink/50">-rw-r--r--</span>
-                <span class="text-ink/50 w-4 shrink-0 text-right">{note.number}</span>
+                <span class="text-ink-subtle">-rw-r--r--</span>
+                <span class="text-ink-subtle w-4 shrink-0 text-right">{note.number}</span>
                 <span class="text-[#ce9178]">{note.user?.login || 'hachemite'}</span>
                 <span>{getSize(note.body)}</span>
                 <span class="text-[#6a9955]">{getTerminalDate(note.created_at)}</span>
@@ -93,7 +93,7 @@ Unpolished field notes, raw technical logs, and open research on whatever intere
               <div class="flex flex-1 items-center justify-between md:justify-start md:gap-4">
                 <span class="text-base font-bold text-[#d4d4d4] decoration-dotted underline-offset-4 group-hover:text-white group-hover:underline md:text-sm">
                   {note.title}
-                  <span class="text-ink/30 font-normal">.md</span>
+                  <span class="text-ink-subtle font-normal">.md</span>
                 </span>
 
                 <div class="hidden md:flex md:gap-2">
@@ -107,7 +107,7 @@ Unpolished field notes, raw technical logs, and open research on whatever intere
                   ))}
                 </div>
 
-                <span class="text-ink/40 md:hidden">↗</span>
+                <span class="text-ink-subtle md:hidden">↗</span>
               </div>
 
               <div class="mt-2 flex flex-wrap gap-2 md:hidden">
