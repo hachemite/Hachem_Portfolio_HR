@@ -12,7 +12,8 @@
   /* Bronze Scale */
   --color-bronze: #6b5d4f; /* Primary accent color */
   --color-bronze-light: #c0a080; /* Lighter accent for hover states */
-
+  --color-bronze-dark: #5c4f43; /* Darkest bronze */
+  
   /* Semantic Colors */ /* Never used it break all reserved for future use (never used as dot) */
   --color-info: #5a7d7c;
   --color-warning: #d4a056;
