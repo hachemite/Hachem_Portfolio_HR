@@ -4,7 +4,7 @@
 
 This repository is not a standard portfolio. It is a **performance-optimised digital CV** designed to demonstrate senior engineering competence through **resource efficiency, information density, and system-design thinking**.
 
-Deployed at: [hachemsqualli.xyz](https://hachemsqualli.xyz)
+Deployed at: [hachemsqualli.xyz](https://hachemsqualli.com)
 
 ## 🏗️ Architecture & DevOps Flex
 
