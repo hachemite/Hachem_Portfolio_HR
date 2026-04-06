@@ -1,0 +1,8 @@
+name: 'PedalPulse: Multi-Model Bicycle Demand Prediction'
+role: 'Research Project'
+year: 2025
+stack: ['PYTHON', 'XGBOOST', 'CATBOOST', 'SCIKIT-LEARN']
+details:
+  - 'Evaluated a multitude of ML models to predict city-wide demand, documenting results in a formal IEEE-format paper.'
+visible: true
+lang: 'en'

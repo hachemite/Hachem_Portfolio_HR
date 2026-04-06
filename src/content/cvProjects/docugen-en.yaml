@@ -1,0 +1,8 @@
+name: 'DocuGen Pro: AI Document Generation SaaS'
+role: 'Academic Project'
+year: 2026
+stack: ['SPRING BOOT 3', 'ANGULAR 17', 'AWS (S3, SES)', 'STRIPE', 'TERRAFORM']
+details:
+  - 'Developed and deployed a SaaS platform generating legal contracts via Llama 3, featuring automated Stripe payments and instant AWS SES delivery.'
+visible: true
+lang: 'en'

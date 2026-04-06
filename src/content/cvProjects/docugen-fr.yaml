@@ -1,0 +1,8 @@
+name: 'DocuGen Pro: Plateforme SaaS de Génération IA'
+role: 'Projet Académique'
+year: 2026
+stack: ['SPRING BOOT 3', 'ANGULAR 17', 'AWS (S3, SES)', 'STRIPE', 'TERRAFORM']
+details:
+  - 'Développement et déploiement (AWS, Terraform) d’une plateforme SaaS générant des contrats via Llama 3, avec paiements Stripe et livraison instantanée par AWS SES.'
+visible: true
+lang: 'fr'
