@@ -62,7 +62,7 @@ const certificates = defineCollection({
     title: z.string(),
     issuer: z.string(),
     date: z.string(),
-    type: z.enum(['Certificate', 'Award', 'Speaking']),
+    type: z.enum(['Certificate', 'Award', 'Speaking','Honor']),
     visible: z.boolean().default(true),
     lang: z.enum(['en', 'fr']).default('en'), // <-- ADD THIS
   }),
