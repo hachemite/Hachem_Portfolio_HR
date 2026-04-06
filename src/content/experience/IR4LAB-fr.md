@@ -1,16 +1,16 @@
 ---
 role: 'Stagiaire Développeur Full-Stack'
-company: 'IR4LAB Africa'
-location: 'À distance / Fès, Maroc'
+company: 'IR4LAB Africa / Smart Transformation'
+location: 'Fès, Maroc'
 startDate: 2025-07-01
 endDate: 2025-08-31
 current: false
 type: 'Internship'
-stack: ['Docker', 'Maven', 'CI/CD', 'i18n']
+stack: ['Spring Boot', 'Angular', 'Docker', 'CI/CD']
 visible: true
 lang: 'fr'
 ---
 
-- **Optimisation CI/CD :** Résolution des conflits critiques de configuration entre Docker et Maven, restaurant à 100 % la fiabilité des builds automatisés pour la plateforme blockchain "DocCerts".
-- **Refonte Architecturale :** Découplage de la gestion de l'internationalisation (i18n) de la logique backend principale, éliminant les erreurs HTTP 400 récurrentes.
-- **Localisation UI :** Optimisation de l'interface utilisateur arabe de droite à gauche (RTL) pour garantir une expérience utilisateur fluide et adaptée.
+- **Refonte Architecturale :** Restructuration des couches métier de l'architecture DocCerts (Spring Boot/Angular) pour réduire la dette technique et assurer la maintenabilité à long terme.
+- **Ingénierie UI & RTL :** Résolution des défis architecturaux liés au support RTL (Arabe) sous Angular, corrigeant les instabilités d'interface et découplant la logique métier de la présentation.
+- **Fiabilité & DevOps :** Diagnostic et correction des anomalies API (réduction de 24 % des erreurs HTTP 400) et des conflits Docker/Maven, restaurant la fiabilité du pipeline CI/CD à 100 %.

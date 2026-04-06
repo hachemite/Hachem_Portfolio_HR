@@ -1,6 +1,7 @@
-degree: 'State Engineer in Software Engineering & AI (ILIA)'
-institution: 'ENSA Fès'
+degree: "Diplôme d'Ingénieur d'État en Informatique – Filière ILIA"
+institution: 'École Nationale des Sciences Appliquées (ENSA)'
 yearStart: 2022
 yearEnd: 2027
-details: 'Integrated 5-year curriculum including Preparatory Cycle...'
+details: "Cursus ingénieur intégré de 5 ans (Cycle Préparatoire + Spécialisation en Ingénierie Logicielle et Intelligence Artificielle) à l'ENSA Fès."
 visible: true
+lang: 'fr'

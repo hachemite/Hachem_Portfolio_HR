@@ -1,8 +1,8 @@
 name: 'ShopEase: E-Commerce IA Haute Performance'
 role: 'Site Live'
 year: 2026
-stack: ['ANGULAR', 'FASTAPI', 'SQLITE', 'TENSORFLOW', 'AUTOENCODER']
+stack: ['FASTAPI', 'TENSORFLOW', 'ANGULAR', 'SQLITE', 'AUTOENCODER']
 details:
-  - 'Système de recommandation non supervisé servant 35GB+ de données via Indexation Custom ZIP-Stream (réponse <100ms).'
+  - 'Conception d’un moteur de recommandation non supervisé (Autoencoder) entraîné sur 31M+ de transactions H&M, servi via un index vectoriel (<100ms/requête).'
 visible: true
 lang: 'fr'
